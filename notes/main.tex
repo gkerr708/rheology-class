@@ -1,0 +1,1200 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{custom_config}
+
+\begin{document}
+
+
+\section*{Strain}
+
+
+\paragraph{Notes:}
+I found the Wikipedia page on finite strain theory very helpful:
+\url{https://en.wikipedia.org/wiki/Finite_strain_theory}.
+
+\part{Stress and Strain}
+
+\paragraph{Displacement Tensor:} is defined as:
+\begin{equation}
+	g_{ij} = \frac{\partial u_i}{\partial x_j}.
+\end{equation}
+This says how the displacement vector $u_i$ changes as we move in the $x_j$ direction.
+This can be decomposed into a symmetric and an antisymmetric part:
+\begin{equation}
+	g_{ij} = \underbrace{\frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right)}_{\text{symmetric part}} +
+	\underbrace{\frac12 \left(\frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i}\right)}_{\text{antisymmetric part}}
+	= d_{ij} + \theta_{ij}
+\end{equation}
+where $d_{ij}$ is the \textit{deformation tensor} and $\theta_{ij}$ is the \textit{rotation tensor}.
+This is important because the rotation tensor does not contribute to strain, only the deformation tensor does.
+
+\paragraph{Deformation Tensor:}
+For large deformations we have the \textit{full} equation:
+\begin{equation}
+	\varepsilon_{ij} = 
+	\frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) +
+	\frac12 \left(\frac{\partial^2 u_1}{\partial x_i \partial x_j} +
+	\frac{\partial^2 u_2}{\partial x_i \partial x_j} +
+	\frac{\partial^2 u_3}{\partial x_i \partial x_j} \right).
+\end{equation}
+
+For small deformations, $\varepsilon_{ij} \ll 1$, the higher order terms can be neglected:
+\begin{equation}
+	d_{ij} = \frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) .
+\end{equation}
+
+$d_{ij}$ can be further decomposed into a volumetric and a deviatoric part:
+\begin{equation}
+	d_{ij} = \underbrace{\tfrac13 \varepsilon_{V} \delta_{ij}}_{\text{volumetric part}} +
+	\underbrace{d_{ij}^{\text{(Dev)}}}_{\text{deviatoric part}}
+\end{equation}
+where $\varepsilon_V = \text{tr}(d_{ij}) = d_1 + d_2 + d_3$ is the volumetric strain.
+$d_{i}$ are the principal strains, i.e. the eigenvalues of the deformation tensor (same as with stress).
+
+
+\paragraph{Stretch Ratios:}
+The stretch ratio in the $i$ direction is defined as:
+\begin{equation}
+	\lambda_i = \frac{\Delta l + l_0}{l_0} 
+\end{equation}
+as opposed to strain which is defined as:
+\begin{equation}
+	\epsilon_i = \frac{\Delta l}{l_0} = \lambda_i - 1
+\end{equation}
+which means that $\lambda = 1$ corresponds to no stretch, while $\epsilon = 0$ corresponds to no strain.
+
+\paragraph{Finite Strains are not Additive:}
+If we have two consecutive strains $\epsilon_1$ and $\epsilon_2$, the total strain is not simply their sum.
+Then $\lambda$ becomes useful because stretch ratios are multiplicative
+\footnote{The total stretch from $l_0\to l_1$ and $l_1\to l_2$ is $\frac{l_2}{l_0} = \frac{l_2}{l_1}\frac{l_1}{l_0}$.}. 
+Therefore $\ln(\lambda)$ would be Additive.
+This is called the \textit{Hencky Strain} or \textit{True Strain} and is defined as:
+\begin{equation}
+	\epsilon^H = \ln(\lambda) = \ln(1 + \varepsilon_{\text{eng}}).
+\end{equation}
+
+\paragraph{Cauchy-Green Tensor:}
+The Cauchy-Green deformation tensor is defined as:
+\begin{equation}
+	C_{ij} = \delta_{ij} + 2 \varepsilon_{ij}.
+\end{equation}
+\begin{equation}
+	\varepsilon_{ij} = \frac12 \begin{bmatrix}
+		\frac{l_x^2 - l_{0x}^2}{l_{0x}^2} & 0 & 0 \\
+		0 & \frac{l_y^2 - l_{0y}^2}{l_{0y}^2} & 0 \\
+		0 & 0 & \frac{l_z^2 - l_{0z}^2}{l_{0z}^2}
+	\end{bmatrix} \implies
+	C_{ij} = \begin{bmatrix}
+		\frac{l_x^2}{l_{0x}^2} & 0 & 0 \\
+		0 & \frac{l_y^2}{l_{0y}^2} & 0 \\
+		0 & 0 & \frac{l_z^2}{l_{0z}^2}
+	\end{bmatrix}
+\end{equation}
+So if $\varepsilon_{ij}$ is the strain tensor, then $C_{ij}$ is the stretch tensor squared.
+
+I think there's a mistake here where some of those values shouldn't be squared. \blue{Check this.}
+
+The principal values of $C_{ij}$ are related to the stretch ratios as:
+\begin{equation}
+	C_i = \lambda_i^2, \quad C_i^{-1} = \lambda_i^{-2}.
+\end{equation}
+
+The principal directions $n_i$ are given by the eigenvalue equation:
+\begin{equation}
+	C_{ij} n_j = \lambda_i^2 n_i,
+\end{equation}
+but often we just work in the principal basis where $C_{ij}$ is diagonal. Then
+\begin{equation}
+	C_{ij} = \begin{bmatrix}
+		\lambda_1^2 & 0 & 0 \\
+		0 & \lambda_2^2 & 0 \\
+		0 & 0 & \lambda_3^2
+	\end{bmatrix}, 
+\end{equation}
+with basis vectors 
+$n_1 = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix},
+n_2 = \begin{bmatrix}0 \\ 1 \\ 0\end{bmatrix},
+n_3 = \begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix}$.
+
+As far as I can tell $C_{ij}$ is mainly useful (as opposed to $\varepsilon_{ij}$) is because you get $\lambda_i$ directly from the eigenvalues.
+$\lambda_i$ are useful because of the multiplicative property mentioned above and the invariant volume change:
+\begin{equation}
+	\Delta V / V_0 = \lambda_1 \lambda_2 \lambda_3 - 1.
+\end{equation}
+
+
+\section{Practice Problems}
+
+\subsection{Stress in a Thin Walled Pressure Vessel (Pg. 15 Malkin)}
+We have a thin walled cylindrical pressure vessel.
+We want to know what is the stress $\sigma_\theta$ in the circumferential direction and $\sigma_z$ in the axial direction.
+The internal pressure is $p$, the radius is $R$ and the wall thickness is $\delta$.
+
+Start with $dF = p \, \mathbf{n} \dot d\mathbf{A}$, where $\mathbf{n}$ is the direction of the force we consider.
+We can simplify this to $dF = p \cos(\theta) \, dA$, then integrate over the area.
+\begin{equation}
+	F = \int dA \, p \cos(\theta)  
+	= p \int_{-\pi/2}^{\pi/2} \int_0^L R \, d\theta \, dz \, \cos(\theta)
+	= 2 p R L
+	\label{eq:1.1}
+\end{equation}
+Then this is balanced by the stress in the wall:
+\[
+	\sigma_\theta = \frac{F}{2 \delta L}.
+\]
+Then substituting Eq. \ref{eq:1.1} gives:
+\[
+	\sigma_\theta = \frac{p R}{\delta}.
+\]
+For the axial stress, we consider the area of the circular cross section:
+\[
+	F = p \pi R^2.
+\]
+This Force is distributed across $2 \pi R \delta$ so:
+
+
+Now we'll look at the case where you have torque allies to the inner or the outer wall of the cylinder.
+In this case we have:
+\[
+	\frac{dT}{R}
+	= \sigma \, dA = \sigma \, R \, d\theta \, \delta
+	\implies
+	dT = \sigma \, R^2 \, \delta \, d\theta.
+\]
+
+Integrating over $\theta$ from $0$ to $2\pi$ gives:
+\[
+	T = \int_0^{2\pi} \sigma \, R^2 \, \delta \, d\theta
+	= 2 \pi \sigma R^2 \delta
+	\implies
+	\sigma = \frac{T}{2 \pi R^2 \delta}.
+\]
+
+The final answer according to Malkin is:
+\[
+	\sigma = \frac{2T}{\pi (2 R + \delta)^2 \delta}.
+\]
+
+\subsection{Hemispherical Cup under its Own Weight (Q 1-7 Malkin)}
+Calculate the stresses in a hemispherical cup loaded by its own weight. Such a case is part of many engineering designs, for example, in a spherical roof covering a large area of a stadium or a warehouse.
+
+\[
+A(\varphi)=\int_{0}^{2\pi}\int_{0}^{\varphi} R^2\sin\varphi'\,d\varphi'\,d\theta
+=2\pi R^2(1-\cos\varphi).
+\]
+Hence its weight is
+\[
+W(\varphi)=\rho g \delta A(\varphi)=2\pi \rho g \delta R^2(1-\cos\varphi).
+\]
+
+\paragraph{Important note (about the rim).}
+The expression for $N_\theta$ involves a factor $1/\cos\varphi$, so as $\varphi\to \pi/2$
+(the rim), the membrane solution becomes singular.
+This is a classic sign that the \emph{pure membrane} assumption breaks down near the boundary:
+the actual stress state near the rim depends on how the cup is supported (ring beam, clamp, free edge),
+and bending effects become important in a boundary layer.
+The meridional resultant $N_\varphi$ above is robust (it comes from global vertical equilibrium),
+but the detailed hoop stress near the rim requires boundary conditions and (typically) bending theory.
+
+\subsection{Liquid between Coaxial Cylinders (Q 1-8 Malkin)}
+Let liquid be placed between two coaxial cylinders with radii $R_o$ (outer) and $R_i$ (inner).  The gap between cylinders $\Delta = R_o - R_i$ is small in comparison with the cylinder radii. Let  the outer cylinder rotate with an angular velocity, $\Omega$. Then, the assembly of both cylinders begins to rotate with the same angular velocity, $\omega$. What are the shear rates and gradients of velocity in these two cases?
+
+\[
+	\dot\varepsilon = \frac{d}{dr}\frac{du_\theta}{dt}
+	= \frac{d}{dr}\Omega R
+	= \frac{\Omega R}{\Delta}
+\]
+
+
+\part{Viscoelasticity}
+\paragraph{The Kohlrausch function}
+\begin{equation}
+	\sigma(t) = \sigma_0\exp\left[-\left(\frac{t}{\theta}\right)^n\right]
+\end{equation}
+where $0 < n \leq 1$ is the \emph{stretching exponent}. $\theta$ is the \emph{characteristic relaxation time} and NOT the relaxation time itself.
+It can represent a series of relaxation times (empirical).
+
+
+\section{Creep and Relaxation (2.1-2.2)}
+\textbf{Linear Viscoelasticity}: $\gamma \propto \sigma_0$.
+
+\subsection{Creep}
+Typical Creep curve:
+\begin{equation}
+	\gamma(t) = \sigma_0  J(t)
+	= \sigma_0 \left[J_0 + \Psi(t)+ t / \eta \right]
+\end{equation}
+$J(t)$ is the \emph{viscoelastic compliance} and $J_0$ is the instantaneous elastic compliance.
+$\Psi(t)$ is the \emph{creep function} and $\eta$ is the viscosity.
+\begin{equation}
+	\Psi(t) = \int_0^\infty J(\lambda) \left[1 - e^{-t/\lambda}\right] d\lambda
+\end{equation}
+where $\lambda$ is the \emph{retardation time}. Basically, this integral sums up the contributions of all retardation times to the creep function.
+$J(\lambda)$ is the \emph{retardation spectrum}.
+This is commonly done in log scale:
+\begin{equation}
+	\Psi(t) = \int_{-\infty}^\infty  k(\ln \lambda) \left[1 - e^{-t/\lambda}\right] d\ln \lambda
+\end{equation}
+
+\subsection{Stress Relaxation}
+Typical Stress Relaxation curve:
+\begin{equation}
+	\sigma(t) = \gamma_0 G(t)
+	= \gamma_0 \left[G_\infty + \varphi(t)\right]
+\end{equation}
+\begin{equation}
+	\varphi(t) = \int_0^\infty G(\theta) e^{-t/\theta} d\theta
+\end{equation}
+where $\theta$ is the \emph{relaxation time} and $G(\theta)$ is the \emph{relaxation spectrum}.
+
+
+
+\subsection{Oscillatory Strain}
+They say that
+\[
+	\sigma(t) = G_0 \varepsilon_0  + \sigma_0 e^{i(\omega t +\delta)}
+\]
+and therefore
+\[
+	G^* = G_0 + G' + iG''
+\]
+but I don't understand where the $G_0$ term comes from.
+Usually
+\(
+	G^* =  G' + iG'',
+\)
+no?
+Looking elsewhere in the text it says that $G_0 = G_\infty + \varphi(0)$ is the instantaneous modulus.
+This is
+\[
+	G(t) = \sigma(t)/\varepsilon_0 = G_\infty + \varphi(t)
+\]
+so at $t=0$ we have
+\[	G(0) = G_\infty + \varphi(0) = G_0. \]
+So I think the $G_0$ term is there to account for the instantaneous elastic response at $t=0$.
+
+\begin{equation}
+	\eta = \sum_n G_n \theta_n
+\end{equation}
+
+
+\section{Maxwell and Kelvin-Voigt Models (2.3)}
+\subsection{Maxwell Model}
+The Maxwell model consists of a spring and dashpot in series.
+The total strain is the sum of the strains in each element:
+\begin{equation*}
+	\gamma = \gamma_s + \gamma_d
+	\implies
+	\dot\gamma = \dot\gamma_s + \dot\gamma_d
+\end{equation*}
+Then the constitutive equation is:
+\begin{equation}
+	\dot\gamma = \frac{\dot\sigma}{G} + \frac{\sigma}{\eta}
+	\label{eq:maxwell_constitutive}
+\end{equation}
+
+\subsection{Kelvin-Voigt Model}
+The Kelvin-Voigt model consists of a spring and dashpot in parallel.
+The total stress is the sum of the stresses in each element:
+\begin{equation*}
+	\sigma = \sigma_s + \sigma_d
+\end{equation*}
+Then the constitutive equation is:
+\begin{equation}
+	\sigma = G \gamma + \eta \dot\gamma
+	\label{eq:kv_constitutive}
+\end{equation}
+
+
+\section{Boltzmann-Volterra Superposition Principle (2.4)}
+The Boltzmann-Volterra superposition principle states that the total strain (or stress) at time $t$ is the sum of all the incremental strains (or stresses) produced by all previous stress (or strain) increments.
+This is expressed mathematically as:
+\begin{equation}
+	\gamma(t) = \int_{-\infty}^t J(t - t') \frac{d\sigma(t')}{dt'} dt'
+\end{equation}
+where $J(t - t') = \int_0^\infty J_0 + \Psi(t - t') + (t - t')/\eta \, d\lambda$ is the viscoelastic compliance function.
+\begin{equation}
+	\Psi(t - t') = \int_0^\infty J(\lambda) \left[1 - e^{-(t - t')/\lambda}\right] d\lambda
+\end{equation}
+for creep, and
+\begin{equation}
+	\sigma(t) = \int_{-\infty}^t G(t - t') \frac{d\gamma(t')}{dt'} dt'
+\end{equation}
+where $G(t - t') = \int_0^\infty G_\infty + \varphi(t - t') \, d\theta$ is the relaxation modulus function.
+\begin{equation}
+	\varphi(t - t') = \int_0^\infty G(\theta) e^{-(t - t')/\theta} d\theta
+\end{equation}
+for stress relaxation.
+
+
+\subsection{Example: Stress buildup under constant strain rate}
+Assume nothing from $t=-\infty \to t=0$ then apply a constant strain rate $\dot\gamma_0$ from $t=0$ onward.
+Since our strain is defined as:
+\begin{equation}
+	\dot\gamma(t) = \begin{cases}
+		0, & t < 0 \\
+		\dot\gamma_0, & t \geq 0
+	\end{cases}
+\end{equation}
+our integral is only non-zero from $t'=0 \to t'=t$.
+\begin{align*}
+	\sigma(t) &= \int_0^t G(t - t') \frac{d\gamma(t')}{dt'} dt' \\
+	&= \dot\gamma_0 \int_0^t G(t - t') dt' \\
+	&= \dot\gamma_0 \int_0^t \left[G_\infty + \varphi(t - t')\right] dt' \\
+	&= \dot\gamma_0 \left[G_\infty t + \int_0^t \varphi(t - t') dt'\right] \\
+	&= \dot\gamma_0 \left[G_\infty t + \int_0^t \int_0^\infty G(\theta) e^{-(t - t')/\theta} d\theta dt'\right] \\
+	&= \dot\gamma_0 \left[G_\infty t + \int_0^\infty G(\theta) \int_0^t e^{-(t - t')/\theta} dt' d\theta\right] \\
+\end{align*}
+With the substitution $u = - (t - t')/\theta$, $dt' = \theta du$:
+\begin{equation*}
+	\int_{-t/\theta}^0 e^{u} \theta du \\
+	= \theta \left[ 1 - e^{-t/\theta} \right].
+\end{equation*}
+Therefore our final expression is:
+\begin{equation}
+	\sigma(t) = \dot\gamma_0 \left[G_\infty t + \int_0^\infty G(\theta) \theta (1 - e^{-t/\theta}) d\theta\right]
+\end{equation}
+
+
+\section{Relationships among Viscoelastic Functions (2.5)}
+
+In linear viscoelasticity, the stress response of a material may be represented by a continuous relaxation spectrum $G(\theta)$, such that the relaxation function is written as
+\begin{equation}
+	\varphi(t) = \int_0^\infty G(\theta)\, e^{-t/\theta}\, d\theta,
+\end{equation}
+which corresponds to a superposition of Maxwell elements with relaxation times $\theta$ and moduli $G(\theta)\,d\theta$.
+
+\subsection{Instantaneous modulus}
+
+The instantaneous modulus $G_0$ is defined as the stress response to an infinitesimal step strain at zero time. Evaluating the relaxation function at $t=0$ gives
+\begin{equation}
+	G_0 = \varphi(0) = \int_0^\infty G(\theta)\, d\theta.
+\end{equation}
+Thus, the instantaneous modulus is the zeroth moment of the relaxation spectrum. Physically, this represents the total elastic stiffness of the material before any relaxation has occurred, with all relaxation modes contributing equally.
+
+\subsection{Newtonian viscosity}
+
+The zero-shear (Newtonian) viscosity $\eta$ is defined from the steady-state shear stress under a constant shear rate $\dot\gamma$,
+\begin{equation}
+	\eta = \lim_{t \to \infty} \frac{\sigma(t)}{\dot\gamma}.
+\end{equation}
+In linear viscoelasticity, the viscosity is given by the time integral of the relaxation function,
+\begin{equation}
+	\eta = \int_0^\infty \varphi(t)\, dt.
+\end{equation}
+Substituting the spectral representation of $\varphi(t)$ yields
+\begin{align}
+	\eta
+	&= \int_0^\infty \int_0^\infty G(\theta)\, e^{-t/\theta}\, d\theta\, dt \\
+	&= \int_0^\infty G(\theta)
+	\left( \int_0^\infty e^{-t/\theta}\, dt \right) d\theta \\
+	&= \int_0^\infty \theta\, G(\theta)\, d\theta.
+\end{align}
+The Newtonian viscosity is therefore the first moment of the relaxation spectrum and is dominated by long-lived relaxation modes.
+
+\subsection{Steady-state compliance}
+
+The steady-state compliance $J_s^0$ is defined as the long-time strain response to a step stress $\sigma$,
+\begin{equation}
+	J_s^0 = \lim_{t \to \infty} \frac{\gamma(t)}{\sigma}.
+\end{equation}
+For a viscoelastic material described by a relaxation spectrum, the steady-state compliance can be expressed in terms of moments of $G(\theta)$ as
+\begin{equation}
+	J_s^0
+	= \frac{\int_0^\infty \theta^2\, G(\theta)\, d\theta}
+	{\left(\int_0^\infty \theta\, G(\theta)\, d\theta\right)^2}.
+\end{equation}
+This quantity depends on the second moment of the relaxation spectrum, normalized by the square of the viscosity. Physically, $J_s^0$ characterizes the long-time deformability of the material and is sensitive to the breadth of the relaxation time distribution. Materials with broad relaxation spectra exhibit larger steady-state compliances than materials with narrowly distributed relaxation times, even if their viscosities are identical.
+
+\subsection{Summary}
+
+The fundamental linear viscoelastic material functions may therefore be interpreted as successive moments of the relaxation spectrum:
+\begin{align}
+	G_0 &= \int_0^\infty G(\theta)\, d\theta, \\
+	\eta &= \int_0^\infty \theta\, G(\theta)\, d\theta, \\
+	J_s^0 &= \frac{\int_0^\infty \theta^2\, G(\theta)\, d\theta}
+	{\left(\int_0^\infty \theta\, G(\theta)\, d\theta\right)^2}.
+\end{align}
+This hierarchy highlights how short-time modes govern elastic response, long-time modes control viscous flow, and the overall distribution of relaxation times determines long-time compliance.
+
+\section{Molecular Models (2.6)}
+\subsection{Draining Model}
+You have a $G_n$ and a $\lambda_n$ for each spring. 
+$\lambda_\text{max}$ is the longest relaxation time, corresponding to the slowest mode of motion.
+The key result is that
+\[
+	\lambda_\text{max} \propto N^2.
+\] 
+and all other relaxation times are proportional to $n^2$:
+\[
+	\lambda_n = \frac{\lambda_\text{max}}{n^2}, \quad n=1,2,\ldots,N.
+\]
+
+\subsection{Non-draining Model}
+Before we didn't consider interactions between segments of the polymer chain, now we do.
+
+\textbf{Key results:}
+\begin{itemize}
+	\item The maximum relaxation time $\lambda_\text{max}$ has the same form as in the draining model, but with a different prefactor.
+	\item All other relaxation times are not independent, but can be found within the framework of the model.
+	\item The distribution of relaxation times is different than in the draining model (more narrow), though the differences are not very large.
+	\item The new relaxation time distribution results in slightly different predictions concerning experimentally observed functions, primarily $G'(\omega)$ and $G''(\omega)$.
+\end{itemize}
+For low $\omega$ both models predict the same behavior and vice versa for high $\omega$.
+
+\subsection{Rotating Coil}
+The dependence of apparent viscosity on the shear rate is the same as the dependence of dynamic viscosity on frequency, $\eta'(\omega)$, assuming that shear rate equals frequency, i.e., \textbf{the theory predicts linear viscoelastic behavior} with simultaneous shear-rate dependence of viscosity in shear flow.
+
+\subsection{Concentrated Polymer Solutions / Melts}
+\textbf{Key idea:} There is a velocity threshold for which the entanglements can flow or get stuck. Solid-like $\to$ liquid-like behavior.
+
+The is the criterion for flow:
+\[
+	M^* = \frac{\sigma_s^2}{2 G_\text{term}}\frac{M_c}{\rho RT}
+	    = \frac{\sigma_s^2}{2 G_e G_\text{term}}
+\]
+
+\subsection{Reptation theory}
+
+Reptation theory describes the dynamics of long, entangled polymer chains in concentrated solutions and melts by modeling each chain as being confined to an effective tube formed by surrounding chains. Transverse motion is strongly suppressed, and chain relaxation occurs primarily via one-dimensional diffusion along the tube axis, a process known as \emph{reptation}.
+
+The curvilinear diffusion coefficient along the tube, $D_c$, sets the characteristic reptation (or disengagement) time
+\begin{equation}
+\tau_d \sim \frac{L^2}{D_c},
+\end{equation}
+where $L$ is the contour length of the polymer. For flexible linear polymers, this leads to the well-known molecular-weight scaling
+\begin{equation}
+\tau_d \sim M^3,
+\end{equation}
+reflecting the increasing number of entanglements with chain length.
+
+\section{Time--temperature superposition, reduced master viscoelastic curves (2.7)}
+
+\subsection{Superposition of experimental curves}
+
+Time--temperature superposition (TTS) is based on the observation that, for thermorheologically simple materials, changes in temperature primarily rescale the characteristic relaxation times without altering the underlying relaxation mechanisms. Experimental viscoelastic data obtained at different temperatures may therefore be collapsed onto a single master curve by applying horizontal (and, if necessary, vertical) shift factors.
+
+For oscillatory measurements, the reduced frequency is defined as
+\begin{equation}
+\omega_\mathrm{red} = a_T(T)\,\omega,
+\end{equation}
+where $a_T$ is the temperature-dependent horizontal shift factor relative to a reference temperature $T_0$. In some systems, a vertical shift factor $b_T$ is also applied to account for changes in modulus magnitude,
+\begin{equation}
+G^*(\omega,T) = b_T(T)\, G^*(\omega_\mathrm{red}, T_0).
+\end{equation}
+
+The success of this procedure implies that temperature acts only to shift the relaxation spectrum along the time or frequency axis.
+
+\subsection{Master curves and relaxation states}
+
+The resulting master curve represents the viscoelastic response over a frequency or time window far broader than that accessible in a single experiment. Physically, this corresponds to probing different regions of the same relaxation spectrum at different temperatures.
+
+In the time domain, the stress relaxation modulus may be written as
+\begin{equation}
+G(t) = \int_0^\infty G(\tau)\,e^{-t/\tau}\,\mathrm{d}\tau,
+\end{equation}
+where $G(\tau)$ is the relaxation-time spectrum. Time--temperature superposition assumes that temperature rescales the relaxation times according to
+\begin{equation}
+\tau(T) = a_T(T)\,\tau(T_0),
+\end{equation}
+while leaving the spectral weights unchanged. The master curve therefore reflects a single underlying set of relaxation states sampled over different effective timescales.
+
+\subsection{Universal relaxation spectra}
+
+When TTS holds over a wide temperature range, the extracted relaxation spectrum is often described as \emph{universal}, in the sense that its functional form is independent of temperature. Empirical representations such as stretched exponentials,
+\begin{equation}
+G(t) \sim \exp\!\left[-\left(\frac{t}{\tau}\right)^\beta\right],
+\end{equation}
+or discrete mode spectra,
+\begin{equation}
+G(t) = \sum_i G_i \exp\!\left(-\frac{t}{\tau_i}\right),
+\end{equation}
+are commonly used to capture this behavior.
+
+Deviations from universality indicate changes in the material microstructure or relaxation mechanisms with temperature, signaling the breakdown of thermorheological simplicity.
+
+\section{Nonlinear effects in viscoelasticity (2.8)}
+
+\subsection{Experimental evidence}
+
+Nonlinear viscoelastic behavior arises when the imposed deformation is sufficiently large that the material response is no longer proportional to the applied strain or strain rate. Experimentally, this manifests as strain-dependent moduli, harmonic generation in oscillatory shear, shear thinning or thickening, and deviations from time--temperature superposition.
+
+In large-amplitude oscillatory shear (LAOS), for example, the stress response contains higher harmonics,
+\begin{equation}
+\sigma(t) = \sum_{n=1}^{\infty} \sigma_n \sin(n\omega t + \delta_n),
+\end{equation}
+which are absent in the linear regime.
+
+\subsection{Linear--nonlinear correlations}
+
+Despite their complexity, nonlinear responses are often correlated with linear viscoelastic properties. Characteristic timescales extracted from linear measurements, such as the longest relaxation time $\tau_d$, frequently govern the onset of nonlinear effects.
+
+For extensional or shear flows, the degree of nonlinearity is commonly quantified using the Weissenberg number,
+\begin{equation}
+\mathrm{Wi} = \dot\gamma\,\tau,
+\end{equation}
+where $\dot\gamma$ is the deformation rate. Nonlinear behavior typically emerges when $\mathrm{Wi} \gtrsim 1$, indicating that deformation occurs faster than stress relaxation.
+
+\subsection{Rheological equations of state}
+
+Rheological equations of state provide constitutive relations linking stress to deformation history. In the linear regime, the stress is given by a convolution integral,
+\begin{equation}
+\sigma(t) = \int_{-\infty}^{t} G(t-t')\,\dot\gamma(t')\,\mathrm{d}t',
+\end{equation}
+where $G(t)$ is the relaxation modulus.
+
+In the nonlinear regime, constitutive models introduce strain- or rate-dependent material functions, for example through integral formulations or differential equations,
+\begin{equation}
+\sigma = \mathcal{F}\!\left[\gamma(t), \dot\gamma(t), \{\tau_i\}\right],
+\end{equation}
+reflecting the coupling between microstructural evolution and macroscopic flow. The breakdown of linear superposition and time--temperature equivalence in this regime highlights the emergence of new physical processes beyond simple relaxation.
+
+
+
+
+\section{Questions}
+\subsection{2-1 Malkin}
+\textit{For Maxwellian liquid with a relaxation time $\theta$, what is the residual stress (in comparison with the initial stress $\sigma_0$), if the process of stress relaxation continues for the duration of  time $t = 2\theta$ ?}
+\[
+	\sigma(t) = \sigma_0 e^{-t/\theta} = \sigma_0 e^{-2}
+\]
+
+\subsection{2-2 Malkin}
+\textit{For a solid material with rheological properties described by the Kelvin-Voigt model, with a retardation time $\lambda$, what is the time necessary to reach 95\% of its equilibrium (limiting) value?}
+\[
+	0.95 = 1 - e^{-t/\lambda} \implies t = -\lambda \ln(0.05) \approx 3 \lambda
+\]
+
+\subsection{2-4 Malkin}
+\textit{Explain why the value $\theta_K$, entering the Kohlrausch function, Eq. 2.1.6 is not a relaxation  time. How do you find relaxation times for this relaxation function?}
+\[
+\varphi(t)=\exp\!\left[-\left(\frac{t}{\theta_K}\right)^n\right],
+\qquad
+\varphi(t)=\int_0^\infty G(\theta)\,e^{-t/\theta}\,d\theta.
+\]
+where $G(\theta)$ is the relaxation-time spectrum (what we want to find).
+Let $s=1/\theta$, so $d\theta=-ds/s^2$,
+\[
+\varphi(t)=\int_0^\infty \frac{G(1/s)}{s^2}\,e^{-st}\,ds
+\equiv \int_0^\infty \tilde G(s)\,e^{-st}\,ds,
+\qquad
+\tilde G(s)=\frac{G(1/s)}{s^2}.
+\]
+Therefore $\tilde G$ is obtained by an inverse Laplace transform:
+\[
+\tilde G(s)=\mathcal L^{-1}\{\varphi(t)\}(s)
+=\frac{1}{2\pi i}\int_{\gamma-i\infty}^{\gamma+i\infty}
+e^{st}\,\varphi(t)\,dt
+\]
+\[
+\boxed{\tilde G(s)=
+\frac{1}{2\pi i}\int_{\gamma-i\infty}^{\gamma+i\infty}
+e^{st}\,e^{-(s_K t)^n}\,dt, \quad \text{where } s_K=1/\theta_K}
+\]
+But without solving, we can just say:
+\[
+\tilde G(s)=\mathcal L^{-1}\{\varphi(t)\}(s)
+\implies
+G(\theta)=\frac{\tilde G(1/\theta)}{\theta^2}.
+\]
+All together
+\[
+	G(\theta) = \frac{1}{\theta^2}\mathcal L^{-1}\left\{e^{-(s_K t)^n}\right\}(1/\theta).
+\]
+
+\subsubsection{Discrete relaxation times}
+If we want to solve it we need to make it discrete. So we can write:
+\[
+	G(\theta) = \sum_{i=1}^N G_i \delta(\theta - \theta_i)
+\]
+so that there are $T$ discrete relaxation times $\theta_i$ with weights $G_i$.
+Then we have our relaxation function as:
+\[
+	\varphi(t) = \sum_{i=1}^N \int_0^\infty G_i \delta(\theta - \theta_i) e^{-t/\theta} d\theta
+	= \sum_{i=1}^N G_i e^{-t/\theta_i}.
+\]
+Now we can equate this to the Kohlrausch function:
+\[
+	e^{- (t/\theta_K)^n }
+	= \sum_{i=1}^N G_i e^{-t/\theta_i}.
+\]
+
+
+\subsubsection{Finishing the inverse Laplace transform}
+
+We have
+\[
+\widetilde G(s)=\mathcal L^{-1}\left\{e^{-(s_K t)^n}\right\}(s),
+\qquad s_K=\frac{1}{\theta_K},\quad 0<n<1.
+\]
+Expand the stretched exponential:
+\[
+e^{-(s_K t)^n}=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,t^{nk}.
+\]
+Use the inverse Laplace transform identity
+\[
+\mathcal L^{-1}\{t^{a}\}(s)=\frac{1}{\Gamma(-a)}\,s^{-a-1}
+\]
+which can be obtained by analytic continuation of
+\(\mathcal L\{t^{\alpha-1}/\Gamma(\alpha)\}=s^{-\alpha}\).
+With \(a=nk\), this gives
+\[
+\mathcal L^{-1}\{t^{nk}\}(s)=\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
+\]
+Therefore
+\[
+\boxed{
+\widetilde G(s)
+=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,
+\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
+}
+\]
+
+\subsubsection{Convert back to the relaxation-time spectrum}
+Recall \(\widetilde G(s)=G(1/s)/s^2\), hence \(G(\theta)=\widetilde G(1/\theta)/\theta^2\).
+Substitute \(s=1/\theta\):
+\[
+\widetilde G(1/\theta)
+=\theta\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,
+\frac{1}{\Gamma(-nk)}(s_K\theta)^{nk}.
+\]
+Thus
+\begin{equation}
+\boxed{
+G(\theta)
+=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^k}{k!}\,
+\frac{1}{\Gamma(-nk)}\left(\frac{\theta}{\theta_K}\right)^{nk},
+\qquad (0<n<1).
+}
+\label{eq:relaxation_spectrum_kohlrausch}
+\end{equation}
+
+Does this converge?
+\[
+	\int_0^\infty G(\theta) d\theta
+	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \int_0^\infty \theta^{nk - 1} d\theta
+\]
+We know that $0 < n < 1$, so $nk - 1 > -1$ for $k \geq 1$.
+Therefore the integral diverges:
+\[
+	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \cdot \infty
+\]
+ 
+\subsubsection{Simulation}
+When I try to simulate Eq. \ref{eq:relaxation_spectrum_kohlrausch} it doesn't converge well.
+This is likely because of the $\Gamma(-nk)$ term in the denominator which diverges for integer $nk$ and therefore isn't numerically stable.
+To fix this we use the Euler's reflection formula:
+\[
+	\Gamma(z) \Gamma(1 - z) = \frac{\pi}{\sin(\pi z)}
+	\implies
+	\Gamma(-nk) = \frac{-\pi}{\sin(\pi nk) \Gamma(1 + nk)}.
+\]
+Substituting this into Eq. \ref{eq:relaxation_spectrum_kohlrausch} gives:
+\[
+G(\theta)
+=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^{k+1}}{k!}\,
+\frac{\sin(\pi nk)}{\pi}\,\Gamma(1+nk)
+\left(\frac{\theta}{\theta_K}\right)^{nk},
+\qquad (0<n<1).
+\]
+We can attempt to show numerically that
+\[
+	\int_0^\infty G(\theta) e^{-t/\theta} d\theta
+	\approx e^{-(t/\theta_K)^n}
+\]
+After trying this in python it \emph{does} blow up.
+
+\subsection{2-5 Malkin}
+\textit{Analyze the evolution of deformations in the following loading history: stress $\sigma_0$ is applied at $t=0$; an additional stress $\sigma_1$ is added at $t=t_1$; finally, at $t=t^*$ both stresses are removed. The material is a linear viscoelastic solid. What is the final deformation as $t\to\infty$?}
+
+For a linear viscoelastic material written in \emph{creep form}, the Boltzmann--Volterra superposition principle gives
+\[
+\gamma(t)=\int_{-\infty}^{t} J(t-t')\, d\sigma(t')
+=\int_{-\infty}^{t} \dot\sigma(t')\,J(t-t')\,dt',
+\]
+where $J(t)$ is the creep compliance.
+The imposed stress is
+\[
+\sigma(t)=\sigma_0 H(t)+\sigma_1 H(t-t_1)-(\sigma_0+\sigma_1)H(t-t^*),
+\]
+where $H(t)$ is the Heaviside step function.
+Step stress gives delta function strain rates:
+\[
+\dot\sigma(t)=\sigma_0\delta(t)+\sigma_1\delta(t-t_1)-(\sigma_0+\sigma_1)\delta(t-t^*).
+\]
+Substituting into the integral
+\[
+\gamma(t)
+=\int_{-\infty}^{t} \big[\sigma_0\delta(t')+\sigma_1\delta(t'-t_1)-(\sigma_0+\sigma_1)\delta(t'-t^*)\big]\,J(t-t')\,dt'.
+\]
+Evaluating the delta functions gives:
+\[
+\gamma(t)
+=\sigma_0\,J(t)\,H(t)
++\sigma_1\,J(t-t_1)\,H(t-t_1)
+-(\sigma_0+\sigma_1)\,J(t-t^*)\,H(t-t^*).
+\]
+For a \emph{viscoelastic solid} we can write the creep compliance as $J(t)=J_0+\Psi(t)$, this becomes
+\[
+\gamma(t)
+=\sigma_0\big[J_0+\Psi(t)\big]H(t)
++\sigma_1\big[J_0+\Psi(t-t_1)\big]H(t-t_1)
+-(\sigma_0+\sigma_1)\big[J_0+\Psi(t-t^*)\big]H(t-t^*).
+\]
+
+Equivalently, in piecewise form:
+\[
+\gamma(t)=
+\begin{cases}
+0, & t<0,\\[4pt]
+\sigma_0\,J(t), & 0\le t<t_1,\\[4pt]
+\sigma_0\,J(t)+\sigma_1\,J(t-t_1), & t_1\le t<t^*,\\[4pt]
+\sigma_0\,J(t)+\sigma_1\,J(t-t_1)-(\sigma_0+\sigma_1)\,J(t-t^*), & t\ge t^*.
+\end{cases}
+\]
+
+\paragraph{Final deformation.}
+For a viscoelastic solid all of the $J(t)$ terms approach the same value as $t\to\infty$:
+\[
+\gamma(\infty)
+=\sigma_0J_\infty+\sigma_1J_\infty-(\sigma_0+\sigma_1)J_\infty = \cancel{0}
+\]
+
+
+\subsection{2-6 Malkin}
+\textit{What is the shape of the frequency dependencies of the components of dynamic modulus for Maxwellian liquid?}
+
+The dynamic modulus is defined as:
+\[
+	G^*(\omega) = G'(\omega) + i G''(\omega).
+\]
+For a Maxwellian liquid, the storage modulus is:
+\[
+	G'(\omega) = \omega \int_0^\infty \varphi(t) \sin\omega t dt,
+\]
+and the loss modulus is:
+\[
+	G''(\omega) = \omega \int_0^\infty \varphi(t) \cos\omega t dt.
+\]
+A Maxwellian liquid has a relaxation function of:
+\[
+	\varphi(t) = G_0 e^{-t/\theta}
+\]
+so there is only one relaxation time $\theta$.
+Calculating the storage modulus:
+\begin{align*}
+	G'(\omega)
+	&= \omega \int_0^\infty G_0 e^{-t/\theta} \sin\omega t dt 
+	= G_0 \omega \frac{\omega}{(1/\theta)^2 + \omega^2} 
+	= G_0 \frac{\omega^2 \theta^2}{1 + \omega^2 \theta^2}\\
+	G''(\omega)
+	&= \omega \int_0^\infty G_0 e^{-t/\theta} \cos\omega t dt 
+	= G_0 \omega \frac{1/\theta}{(1/\theta)^2 + \omega^2} 
+	= G_0 \frac{\omega \theta}{1 + \omega^2 \theta^2}.
+\end{align*}
+The shapes of these functions are as follows:
+\begin{itemize}
+	\item At low frequencies ($\omega \ll 1/\theta$):
+	\[
+		G'(\omega) \approx G_0 \omega^2 \theta^2,
+		\qquad
+		G''(\omega) \approx G_0 \omega \theta.
+	\]
+	So $G'(\omega)$ scales as $\omega^2$ and $G''(\omega)$ scales as $\omega$.
+	\item At high frequencies ($\omega \gg 1/\theta$):
+	\[
+		G'(\omega) \approx G_0,
+		\qquad
+		G''(\omega) \approx G_0 \frac{1}{\omega \theta}.
+	\]
+	So $G'(\omega)$ approaches a constant value $G_0$ and $G''(\omega)$ scales as $1/\omega$.
+\end{itemize}
+Thus, the storage modulus $G'(\omega)$ increases from zero at low frequencies to a plateau at $G_0$ at high frequencies, while the loss modulus $G''(\omega)$ increases linearly at low frequencies and then decreases inversely at high frequencies.
+
+
+\subsection{2-7 Malkin}
+\textit{An experimental relaxation curve was approximated with the sum of three exponential functions with the following parameters:  $G_1 = 2 \times 10^3$ Pa, $\theta_1 = 100$ s; $G_2 = 10^4$ Pa, $\theta_2 = 20$ s; $G_3 = 10^5$ Pa, $\theta_3 = 6$ s.  What is the viscosity of this liquid?}
+
+The \emph{viscosity} is 
+\[
+	\eta = \frac{\sigma(t)}{\dot\gamma}
+	     = \frac{1}{\dot\gamma}
+	\int_{-\infty}^{t} \dot\gamma(t')\,\varphi(t-t')\,dt'.
+\]
+Canceling $\dot\gamma$ gives
+\[
+	\eta = \int_{0}^{\infty} \varphi(t')\,dt'.
+\]
+The relaxation function is given as a sum of exponentials:
+\[
+	\varphi(t) = \sum_{i=1}^3 G_i e^{-t/\theta_i}.
+\]
+Therefore,
+\begin{align*}
+	\eta
+	&= \int_0^\infty \sum_{i=1}^3 G_i e^{-t/\theta_i} dt \\
+	&= \sum_{i=1}^3 G_i \int_0^\infty e^{-t/\theta_i} dt \\
+	&= \boxed{\sum_{i=1}^3 G_i \theta_i}.
+\end{align*}
+
+
+
+
+\subsection{2-8 Malkin}
+\textit{Eq. 2.3.11 and its solution show that the \emph{Burgers model} describes the behavior of a material with two relaxation times. The same behavior is represented by two parallel Maxwell elements with their relaxation times $\theta_1 = n_1/G_1$ and $\theta_2 = n_2/G_2$ where $n_1$ and $G_1$ are the viscosity and elastic modulus of the first and $n_2$ and $G_2$ of the second Maxwell elements  joined in parallel. Calculate the values of the constants of the Burgers model expressed via constants of the two Maxwell elements.}
+
+\subsubsection{Burgers Model:}
+For the total strain rate we have:
+\begin{equation*}
+	\dot\gamma = \dot\gamma_m + \dot\gamma_k
+	= \frac{\sigma}{\eta_m} + \frac{\dot\sigma}{G_m} + \dot\gamma_k.
+\end{equation*}
+\begin{equation*}
+	\dot\gamma_k = \dot\gamma - \frac{\sigma}{\eta_m} - \frac{\dot\sigma}{G_m}, \quad
+	\ddot\gamma_k = \ddot\gamma - \frac{\dot\sigma}{\eta_m} - \frac{\ddot\sigma}{G_m}.
+	\label{eq:tot_strain_rate}
+\end{equation*}
+The stress across the Maxwell and Kelvin-Voigt elements is the same:
+\begin{equation*}
+	\sigma = \sigma_m = \sigma_k
+	\implies
+	\sigma = G_k\gamma_k + \eta_k \dot\gamma_k.
+\end{equation*}
+Now we can differentiate this then substitute Eq. \ref{eq:tot_strain_rate} into it:
+\begin{equation*}
+	\dot\sigma = G_k \dot\gamma_k + \eta_k \ddot\gamma_k.
+\end{equation*}
+\begin{equation*}
+	\dot\sigma
+	= G_k \left(\dot\gamma - \frac{\sigma}{\eta_m} - \frac{\dot\sigma}{G_m}\right)
+	+ \eta_k \left(\ddot\gamma - \frac{\dot\sigma}{\eta_m} - \frac{\ddot\sigma}{G_m}\right).
+\end{equation*}
+Collecting terms gives:
+\begin{equation}
+	\frac{\eta_k}{G_m}\,\ddot\sigma
+	+ \left(1 + \frac{G_k}{G_m} + \frac{\eta_k}{\eta_m}\right)\dot\sigma
+	+ \frac{G_k}{\eta_m}\,\sigma
+	= \eta_k\,\ddot\gamma + G_k\,\dot\gamma.
+	\label{eq:burgers_model}
+\end{equation}
+
+
+\subsubsection{Two Maxwell Elements in Parallel:}
+Consider branch 1, a Maxwell element with spring $G_1$ in series with dashpot $\eta_1$.
+Within this Maxwell element the stress is the same in the spring and dashpot:
+\[
+	\sigma_1 = \sigma_{G_1} = \sigma_{\eta_1},
+	\qquad
+	\sigma_1 = G_1 \gamma_{G_1},
+	\qquad
+	\sigma_1 = \eta_1 \dot\gamma_{\eta_1}.
+\]
+Therefore,
+\[
+	\dot\gamma_{G_1} = \frac{\dot\sigma_1}{G_1},
+	\qquad
+	\dot\gamma_{\eta_1} = \frac{\sigma_1}{\eta_1}.
+\]
+Since the spring and dashpot are in series, strains add in branch 1:
+\begin{align*}
+	\dot\gamma_1 &= \dot\gamma_{G_1} + \dot\gamma_{\eta_1} \\
+	&= \frac{\dot\sigma_1}{G_1} + \frac{\sigma_1}{\eta_1}.
+\end{align*}
+Introducing the time-derivative operator $D \equiv \frac{d}{dt}$, this may be written as
+\begin{align*}
+	\dot\gamma_1 &= \left(\frac{1}{G_1}D + \frac{1}{\eta_1}\right)\sigma_1
+	= \frac{\eta_1 D + G_1}{G_1\eta_1}\,\sigma_1.
+\end{align*}
+
+Similarly for branch 2:
+\begin{align*}
+	\dot\gamma_2 &= \frac{\dot\sigma_2}{G_2} + \frac{\sigma_2}{\eta_2}
+	= \left(\frac{1}{G_2}D + \frac{1}{\eta_2}\right)\sigma_2
+	= \frac{\eta_2 D + G_2}{G_2\eta_2}\,\sigma_2.
+\end{align*}
+Since the two branches are in parallel, the total strain rate is the same in both branches:
+\[
+	\dot\gamma 
+	= \frac{\eta_1 D + G_1}{G_1\eta_1}\,\sigma_1
+	= \frac{\eta_2 D + G_2}{G_2\eta_2}\,\sigma_2.
+\]
+\[
+	\sigma_1 = \frac{G_1\eta_1}{\eta_1 D + G_1}\,\dot\gamma,
+	\qquad
+	\sigma_2 = \frac{G_2\eta_2}{\eta_2 D + G_2}\,\dot\gamma.
+\]
+The total stress is the sum of the stresses in each branch:
+\begin{align*}
+	\sigma &= \sigma_1 + \sigma_2 \\
+	\sigma &= \frac{G_1\eta_1}{\eta_1 D + G_1}\,\dot\gamma
+	+ \frac{G_2\eta_2}{\eta_2 D + G_2}\,\dot\gamma \\
+	\sigma &= \left(\frac{G_1\eta_1}{\eta_1 D + G_1}
+	+ \frac{G_2\eta_2}{\eta_2 D + G_2} \right)\,\dot\gamma
+	\\
+	\sigma &= 
+		\frac{G_1\eta_1(\eta_2 D + G_2)
+	    + G_2\eta_2(\eta_1 D + G_1)} 
+	    {(\eta_2 D + G_2)(\eta_1 D + G_1)} 
+		\dot\gamma
+	\\
+	(\eta_2 D + G_2)(\eta_1 D + G_1) \sigma
+		&= (G_1\eta_1(\eta_2 D + G_2)
+	    + G_2\eta_2(\eta_1 D + G_1))
+		\dot\gamma
+	\\
+	(\eta_1\eta_2 D^2
+	+ (\eta_1 G_2 + \eta_2 G_1) D
+	+ G_1 G_2)
+	\ \sigma
+		&= (G_1\eta_1\eta_2 D + G_1\eta_1G_2
+	    + G_2\eta_2\eta_1 D + G_2\eta_2G_1)
+		\dot\gamma
+	\\
+	\eta_1\eta_2 \ddot\sigma
+	+ (\eta_1 G_2 + \eta_2 G_1) \dot\sigma
+	+ G_1 G_2\sigma
+		&= ((G_1\eta_1\eta_2 + G_2\eta_2\eta_1) D
+	    + G_1\eta_1G_2 + G_2\eta_2G_1)
+		\dot\gamma
+\end{align*}
+\begin{equation*}
+	\eta_1\eta_2 \ddot\sigma
+	+ (\eta_1 G_2 + \eta_2 G_1) \dot\sigma
+	+ G_1 G_2\sigma
+		= (G_1\eta_1\eta_2 + G_2\eta_2\eta_1) \ddot\gamma
+	    + (G_1\eta_1G_2 + G_2\eta_2G_1)\dot\gamma	
+\end{equation*}
+Finally,
+\begin{equation}
+	\frac{\eta_1\eta_2}{G_1G_2} \ddot\sigma
+	+ \frac{(\eta_1 G_2 + \eta_2 G_1)}{G_1G_2} \dot\sigma
+	+ \sigma
+		= \frac{\eta_1(G_1\eta_2 + G_2\eta_2)}{G_1G_2} \ddot\gamma
+	    + (\eta_1 + \eta_2)\dot\gamma	
+		\label{eq:two_maxwell_parallel_soln}
+\end{equation}
+using $\theta_i = \eta_i / G_i$:
+\begin{equation}
+	\theta_1 \theta_2 \ddot\sigma
+	+ (\theta_1 + \theta_2) \dot\sigma
+	+ \sigma
+	= (\theta_1 + \theta_2) \ddot\gamma
+	+ (\theta_1 G_1 + \theta_2 G_2)\dot\gamma
+\end{equation}
+gives us a cleaner form.
+
+\subsubsection{Equating Coefficients}
+From Eq. \ref{eq:two_maxwell_parallel_soln} we have
+\[
+	\frac{\eta_1\eta_2}{G_1G_2} \ddot\sigma
+	+ \frac{(\eta_1 G_2 + \eta_2 G_1)}{G_1G_2} \dot\sigma
+	+ \sigma
+		= \frac{\eta_1\eta_2(G_1 + G_2)}{G_1G_2} \ddot\gamma
+			    + (\eta_1 + \eta_2)\dot\gamma
+\]
+From Eq. \ref{eq:burgers_model} we have
+\[
+	\frac{\eta_k}{G_m}\,\ddot\sigma
+	+ \left(1 + \frac{G_k}{G_m} + \frac{\eta_k}{\eta_m}\right)\dot\sigma
+	+ \frac{G_k}{\eta_m}\,\sigma
+	= \eta_k\,\ddot\gamma + G_k\,\dot\gamma.
+\]
+So we can compare the two equations, we'll multiply Eq. \ref{eq:burgers_model} by $\frac{\eta_m}{G_k}$:
+\[
+	\frac{\eta_k \eta_m}{G_m G_k}\,\ddot\sigma
+	+ \left(\frac{\eta_m}{G_k} + \frac{\eta_m}{G_m} + \frac{\eta_k}{G_k}\right)\dot\sigma
+	+ \sigma
+	= \frac{\eta_k \eta_m}{G_k}\,\ddot\gamma + \eta_m\,\dot\gamma.
+\]
+From left to right, we equate coefficients:
+\begin{align}
+	\frac{\eta_1\eta_2}{G_1G_2}
+	&= \frac{\eta_k \eta_m}{G_m G_k} \label{eq:coeff1} \\
+	\frac{(\eta_1 G_2 + \eta_2 G_1)}{G_1G_2}
+	&= \frac{\eta_m}{G_k} + \frac{\eta_m}{G_m} + \frac{\eta_k}{G_k} \label{eq:coeff2} \\
+	\frac{\eta_1\eta_2(G_1 + G_2)}{G_1G_2}
+	&= \frac{\eta_k \eta_m}{G_k} \label{eq:coeff3} \\
+	(\eta_1 + \eta_2)
+	&= \eta_m \label{eq:coeff4}
+\end{align}
+Firstly we have the trivial result from Eq. \ref{eq:coeff4}:
+\begin{equation*}
+	\boxed{\eta_m = \eta_1 + \eta_2}.
+\end{equation*}
+Theoretically, we also have
+\begin{equation*}
+	G_m = G_1 + G_2
+\end{equation*}
+but we can show this by plugging Eq. \ref{eq:coeff1} into Eq. \ref{eq:coeff3}:
+\begin{align*}
+	\frac{\eta_1\eta_2}{G_1G_2}(G_1 + G_2)
+	&= \frac{\eta_k \eta_m}{G_k} \\
+	\frac{\eta_k \eta_m}{G_m G_k}(G_1 + G_2)
+	&= \frac{\eta_k \eta_m}{G_k} \\
+\end{align*}
+\begin{equation*}
+	\boxed{G_m = G_1 + G_2}.
+\end{equation*}
+
+Using $\eta_m=\eta_1+\eta_2$, $G_m=G_1+G_2$, and
+\[
+	\frac{\eta_k}{G_k}
+	=
+	\frac{\eta_1\eta_2(G_1+G_2)}{G_1G_2(\eta_1+\eta_2)},
+\]
+
+we can substitute into Eq. \ref{eq:coeff2} to solve for $G_k$:
+\begin{align*}
+	\frac{\eta_m}{G_k}
+	&=
+	\frac{\eta_1 G_2 + \eta_2 G_1}{G_1G_2}
+	-\frac{\eta_1+\eta_2}{G_1+G_2}
+	-\frac{\eta_1\eta_2(G_1+G_2)}{G_1G_2(\eta_1+\eta_2)}.
+	\\
+	\frac{\eta_m}{G_k}
+	&=
+	\frac{
+	(\eta_1G_2+\eta_2G_1)(G_1+G_2)(\eta_1+\eta_2)
+	- G_1G_2(\eta_1+\eta_2)^2
+	- \eta_1\eta_2(G_1+G_2)^2
+	}{
+	G_1G_2(G_1+G_2)(\eta_1+\eta_2)
+	}.
+\end{align*}
+Now expand the first term in the numerator:
+\begin{align*}
+	(\eta_1G_2+\eta_2G_1)(\eta_1+\eta_2)
+	&=
+	\eta_1^2G_2 + \eta_1\eta_2G_2 + \eta_1\eta_2G_1 + \eta_2^2G_1 \\
+	&=
+	\eta_1^2G_2 + \eta_2^2G_1 + \eta_1\eta_2(G_1+G_2).
+\end{align*}
+So
+\begin{align*}
+	(\eta_1G_2+\eta_2G_1)(G_1+G_2)(\eta_1+\eta_2)
+	&=
+	(G_1+G_2)\bigl[\eta_1^2G_2 + \eta_2^2G_1 + \eta_1\eta_2(G_1+G_2)\bigr] \\
+	&=
+	(G_1+G_2)(\eta_1^2G_2 + \eta_2^2G_1) + \eta_1\eta_2(G_1+G_2)^2.
+\end{align*}
+Substitute this back into the numerator; the $\eta_1\eta_2(G_1+G_2)^2$ terms cancel:
+\begin{align*}
+	\text{numerator}
+	&=
+	\Bigl[(G_1+G_2)(\eta_1^2G_2 + \eta_2^2G_1) + \eta_1\eta_2(G_1+G_2)^2\Bigr]\\
+	&- G_1G_2(\eta_1+\eta_2)^2
+	- \eta_1\eta_2(G_1+G_2)^2 \\
+	&=
+	(G_1+G_2)(\eta_1^2G_2 + \eta_2^2G_1) - G_1G_2(\eta_1+\eta_2)^2.
+\end{align*}
+Expand the remaining pieces:
+\begin{align*}
+	(G_1+G_2)(\eta_1^2G_2 + \eta_2^2G_1)
+	&=
+	\eta_1^2G_1G_2 + \eta_1^2G_2^2 + \eta_2^2G_1^2 + \eta_2^2G_1G_2, \\
+	G_1G_2(\eta_1+\eta_2)^2
+	&=
+	G_1G_2(\eta_1^2 + 2\eta_1\eta_2 + \eta_2^2)
+	=
+	\eta_1^2G_1G_2 + 2\eta_1\eta_2G_1G_2 + \eta_2^2G_1G_2.
+\end{align*}
+Subtracting gives
+\begin{align*}
+	\text{numerator}
+	&=
+	(\eta_1^2G_2^2 + \eta_2^2G_1^2) - 2\eta_1\eta_2G_1G_2
+	=
+	(G_1\eta_2 - G_2\eta_1)^2.
+\end{align*}
+then
+\begin{equation*}
+	\frac{\eta_m}{G_k}
+	=
+	\frac{(G_1\eta_2 - G_2\eta_1)^2}{G_1G_2(G_1+G_2)(\eta_1+\eta_2)}.
+\end{equation*}
+Since $\eta_m=\eta_1+\eta_2$, invert to obtain
+\begin{equation*}
+	\boxed{
+	G_k=
+	\frac{G_1G_2\,(G_1+G_2)\,(\eta_1+\eta_2)^2}{(G_1\eta_2-G_2\eta_1)^2}
+	}.
+\end{equation*}
+Finally, using Eq. \ref{eq:coeff1} $\eta_k/G_k=\eta_1\eta_2(G_1+G_2)/[G_1G_2(\eta_1+\eta_2)]$, we can solve for $\eta_k$:
+\begin{equation*}
+	\eta_k
+	=
+	G_k\frac{\eta_k}{G_k}
+	=
+	\left[\frac{G_1G_2\,(G_1+G_2)\,(\eta_1+\eta_2)^2}{(G_1\eta_2-G_2\eta_1)^2}\right]
+	\left[\frac{\eta_1\eta_2(G_1+G_2)}{G_1G_2(\eta_1+\eta_2)}\right],
+\end{equation*}
+so
+\begin{equation*}
+	\boxed{
+	\eta_k=
+	\frac{\eta_1\eta_2\,(G_1+G_2)^2\,(\eta_1+\eta_2)}{(G_1\eta_2-G_2\eta_1)^2}
+	}.
+\end{equation*}
+
+\subsection{2-9 Malkin}
+\textit{Is it possible to measure dynamic modulus using non-harmonic periodic oscillations? How this is done?}
+
+Taking it it as a given that functions of the form 
+\[
+	\gamma(t) = \gamma_0 e^{i\omega t}
+\]
+are acceptable inputs to measure the dynamic modulus, any periodic function is also acceptable since it can be expressed as a Fourier series:
+\[
+	\gamma(t) = \sum_{n=-\infty}^\infty c_n e^{i n \omega t},
+\]
+where
+\[	c_n = \frac{1}{T} \int_0^T \gamma(t) e^{-i n \omega t} dt. \]
+By linearity of the viscoelastic response, each harmonic component will produce a stress response at the same frequency:
+\[	\sigma(t) = \sum_{n=-\infty}^\infty c_n G^*(n\omega) e^{i n \omega t}. \]
+Therefore, by measuring the stress response and performing a Fourier transform, we can extract the dynamic modulus at each harmonic frequency $n\omega$:
+\[	G^*(n\omega) = \frac{\text{Fourier component of } \sigma(t) \text{ at } n\omega}{c_n}. \]
+This method allows us to measure the dynamic modulus using non-harmonic periodic oscillations by decomposing the input into its harmonic components and analyzing the corresponding stress responses.
+
+\subsection{2-10 Malkin}
+\textit{In measuring a relaxation curve, it is assumed that the initial deformation is set instantaneously. In fact, it is impossible, and a transient period always exists. Estimate the role of this period for a single-relaxation mode (``Maxwellian'') liquid.}
+
+\subsection{2-11 Malkin}
+\emph{Application of the theory of large deformations to a linear viscoelastic body leads to the following equation for the time evolution of the first normal stress difference, $N_1^+(t)$, at a constant shear rate, $\dot\gamma_0 = \text{const}$:}
+\[
+	N_1^+(t)
+	= 2\dot\gamma_0^2 \int_0^t \varphi(t')\,t'\,dt',
+\]
+\emph{Can you prove this equation?}
+\emph{Calculate $N_1^+(t)$ for an arbitrary relaxation spectrum $G(\theta)$.}
+
+\textbf{Additional question 1} \emph{Find the $N_1(t)$ dependence for stress relaxation after a sudden cessation of steady flow.  Compare the rates of relaxation of shear and normal stresses.}
+
+\textbf{Additional question 2} \emph{For a single-mode viscoelastic liquid with relaxation time, $\theta$, calculate the relative residual shear and normal stresses after relaxation continuing for time $4\theta$.}
+
+
+\subsection{2-12 Malkin}
+\textit{Explain the procedure of transition from a discrete to a continuous relaxation spectrum (from Eq. 2.6.6 to Eqs. 2.6.7 and 2.2.8).}
+
+2.6.6 is:
+\[
+	\lambda_n = \lambda_\text{max}n^{-2}
+\]
+2.6.7 is:
+\[
+	G(\theta) = K\theta^{-3/2}
+\]
+2.6.8 (im assuming there is a type in the equations) is:
+\[
+	h(\ln\theta) = K \theta^{-1/2}
+\]
+otherwise 2.2.8 is:
+\[
+	\varphi(t) = \int_0^\infty G(\theta) e^{-t/\theta} d\theta
+\]
+Which is right? I'm going to assume 2.6.8 is what is meant.
+
+\subsection{2-13 Malkin}
+\textit{Let a small solid dead-weight of mass $m$ be attached to a rod at its end and the rod is fixed at the other end. Some initial displacement from the equilibrium position of the weight (deforming the rod) was created by an applied force, and then the force was ceased. Analyze the movement of the weight after the force is ceased. Is it possible to find the components of the dynamic modulus of a rod material following the movement of a weight?}\\
+\textit{\textbf{Comment:} A rod can be of different lengths and cross-sections. Not specifying the sizes and the geometrical form of a rod, the latter is characterized by the value of th ``form-factor" $k$.}
+
+
+\end{document}

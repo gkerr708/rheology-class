@@ -1,0 +1,64 @@
+% kerr.sty - A simple LaTeX package example
+\ProvidesPackage{custom_config}[2025/01/16 v1.0 Custom Package]
+
+% Load necessary packages
+\RequirePackage{amsfonts,amssymb,amsmath} % For math symbols
+\usepackage[margin=1.0in]{geometry} % For page layout
+\RequirePackage{graphicx} % For including graphics
+\RequirePackage{tikz} % For drawing
+\RequirePackage{multicol} % For multiple columns
+\RequirePackage{hyperref} % For hyperlinks
+\RequirePackage{enumitem} % For custom lists
+\RequirePackage{apacite} % APA citation style
+\RequirePackage{float} % For controlling figure placement
+\RequirePackage{wrapfig} % For wrapping text around figures
+\RequirePackage{cancel} % For canceling terms
+\RequirePackage{xcolor} % For color
+\RequirePackage{bookmark} % For bookmarks in PDF
+\RequirePackage{caption} % For captions
+\RequirePackage{xurl}  % allows URL breaks in better places than url
+\RequirePackage{booktabs} % For better tables
+\RequirePackage{blindtext} % For dummy text
+\RequirePackage{graphicx} % For including images
+\RequirePackage{float} % For controlling figure placement
+
+% General settings
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+\linespread{1.0} 
+\hyphenpenalty=1000
+\exhyphenpenalty=1000
+\doublehyphendemerits=1000
+\brokenpenalty=1000
+\setlength{\emergencystretch}{1em}
+
+% Defining shortcuts
+\newcommand{\bm}[1]{\mathbf{#1}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\bo}[1]{\textbf{#1}}
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\bi}[1]{\textbf{\textit{#1}}}
+
+% Highlighting
+\newcommand{\hl}[1]{\colorbox{yellow}{#1}} % Highlight command
+
+% text color commands
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\pink}[1]{\textcolor{pink}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\magenta}[1]{\textcolor{magenta}{#1}}
+
+% Custom Environments
+\newenvironment{myenvironment}[1]
+  {\par\noindent\textbf{#1: }\itshape}
+  {\par}
+
+% Package initialization
+\AtBeginDocument{
+    \typeout{kerr package loaded successfully.}
+}
