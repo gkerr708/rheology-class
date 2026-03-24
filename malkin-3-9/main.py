@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot(x: np.ndarray, y: np.ndarray, r_0:float,  label: str) -> None:
+def plot(x: np.ndarray, y: np.ndarray, r_0:float,  label: str, save: bool = False) -> None:
     plt.figure(figsize=(8, 6), dpi=200)
     plt.plot(x, y, label=label)
     plt.axvline(x=r_0, color="red", linestyle="--", label=f"Yield Radius (r_0={r_0:.2f})")
@@ -13,7 +13,10 @@ def plot(x: np.ndarray, y: np.ndarray, r_0:float,  label: str) -> None:
     plt.ylim(0)
     plt.title(label)
     plt.grid()
-    plt.show()
+    if save:
+        plt.savefig(f"{label.replace(' ', '_').lower()}.png", dpi=200)
+    else:
+        plt.show()
 
 def velocity_field(
     r: np.ndarray,
@@ -65,10 +68,7 @@ def shear_stress_field(
     r0 = (2 * L * sigma_Y) / Delta_P
     tau = np.zeros_like(r)
     for i, _ in enumerate(r):
-        if abs(r[i]) < r0:
-            tau[i] = sigma_Y
-        else:
-            tau[i] = abs(Delta_P / (2 * L) * r[i])
+        tau[i] = abs(Delta_P / (2 * L) * r[i])
     return tau
 
 def heatmap_lengthwise(
@@ -117,6 +117,7 @@ def heatmap_cross_section(
     R: float,
     label: str,
     cmap: str = "viridis",
+    save: bool = False,
 ) -> None:
     """
     Creates a circular 'cross section' heatmap.
@@ -149,7 +150,10 @@ def heatmap_cross_section(
     plt.title(f"{label} (Cross Section)")
     plt.axis('equal')
     plt.tight_layout()
-    plt.show()
+    if save:
+        plt.savefig(f"{label.replace(' ', '_').lower()}_cross_section.png", dpi=200)
+    else:
+        plt.show()
 
 def main() -> None:
     R = 1
@@ -164,17 +168,17 @@ def main() -> None:
     u,_ = velocity_field(r, R, Delta_P, mu, L, sigma_Y)
     gamma_dot = shear_rate_field(r, Delta_P, mu, L, sigma_Y)
     tau = shear_stress_field(r, Delta_P, mu, L, sigma_Y)
-    plot(r, u, r_0, label="Velocity Field")
-    plot(r, gamma_dot, r_0, label="Shear Rate Field")
-    plot(r, tau, r_0, label="Shear Stress Field")
+    plot(r, u, r_0, label="Velocity Field", save=True)
+    plot(r, gamma_dot, r_0, label="Shear Rate Field", save=True)
+    plot(r, tau, r_0, label="Shear Stress Field", save=True)
 
-    heatmap_lengthwise(r, u, R, L, label="Velocity Field")
-    heatmap_lengthwise(r, gamma_dot, R, L, label="Shear Rate Field")
-    heatmap_lengthwise(r, tau, R, L, label="Shear Stress Field")
+    #heatmap_lengthwise(r, u, R, L, label="Velocity Field")
+    #heatmap_lengthwise(r, gamma_dot, R, L, label="Shear Rate Field")
+    #heatmap_lengthwise(r, tau, R, L, label="Shear Stress Field")
 
-    heatmap_cross_section(r, u, R, label="Velocity Field")
-    heatmap_cross_section(r, gamma_dot, R, label="Shear Rate Field")
-    heatmap_cross_section(r, tau, R, label="Shear Stress Field")
+    heatmap_cross_section(r, u, R, label="Velocity Field", save=True)
+    heatmap_cross_section(r, gamma_dot, R, label="Shear Rate Field", save=True)
+    heatmap_cross_section(r, tau, R, label="Shear Stress Field", save=True)
 
 
 

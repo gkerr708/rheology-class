@@ -1344,6 +1344,96 @@ Calculate shear stresses in the flow of liquid through a straight tube if the fl
 \subsection{3-6 Malkin}
 Calculate the radial distribution of shear rates and flow velocity of Newtonian liquid (having viscosity $\eta$) through a straight tube with radius $R$.
 
+Starting with the \emph{Navier-Stokes equation}:
+\[
+	\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u}\cdot\nabla)\mathbf{u} \right) = -\nabla p + \nabla\cdot\boldsymbol{\tau}.
+\]
+Evaluating the left-hand side, we have the following due to the steady flow assumption:
+\[
+	\frac{\partial \mathbf{u}}{\partial t} = 0.
+\]
+And for the other LHS term:
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
+	= u_j \partial_j u_i
+	= u_r \partial_r u_i + u_\theta \tfrac1r\partial_\theta u_i + u_z \partial_z u_i
+\]
+$u_r = u_\theta = 0$ therefore
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_r = 
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_\theta = 0
+\]
+$\mathbf{u} = u_z(r)$
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
+	= u_r \partial_r u_z + u_\theta \tfrac1r\partial_\theta u_z + u_z \partial_z u_z = 0
+\]
+Therefore the whole LHS of the Navier Stokes is zero. Navier-Stokes equation reduces to
+\[
+	\nabla p = \nabla\cdot\boldsymbol{\tau}.
+\]
+In cylindrical coordinates, the RHS is 
+\[
+	\nabla\cdot\boldsymbol{\tau} = 
+	\frac{1}{r}\frac{\partial}{\partial r}(r\tau_{rz}) + 
+	\frac{1}{r}\frac{\partial \tau_{\theta z}}{\partial \theta} + 
+	\frac{\partial \tau_{zz}}{\partial z}
+	= \frac{1}{r}\frac{\partial}{\partial r}(r\tau_{rz}).
+\]
+All other terms are zero since $\tau_{\theta z} = 0$ and $\tau_{zz}$ is independent of $z$ for steady flow. The pressure gradient is constant, so $\nabla p = \frac{\Delta P}{L}$, and we have
+\begin{align*}
+	\frac{\Delta P}{L} &= \frac{1}{r}\frac{\partial}{\partial r}(r\tau_{rz})\\
+	\frac{\Delta P}{L}\, r &= \frac{\partial}{\partial r}(r\tau_{rz})\\
+	\int \frac{\Delta P}{L}\, r\,dr
+	&= \int \frac{\partial}{\partial r}(r\tau_{rz})\,dr\\
+	\frac{\Delta P}{L}\frac{r^2}{2} + C_1
+	&= r\tau_{rz}.
+\end{align*}
+
+Solving for the shear stress gives
+\[
+	\tau_{rz}
+	=
+	\frac{\Delta P}{2L} r + \frac{C_1}{r}.
+\]
+
+The stress must remain finite at the centerline $r=0$, which requires $C_1 = 0$. Therefore
+\[
+	\boxed{\tau_{rz} = \frac{\Delta P}{2L}\, r}.
+\]
+
+This is a key result: the shear stress $\tau_{rz}$ is proportional to the radius $r$ and does not depend on the viscosity $\eta$.
+
+Now we can use the constitutive relation for a Newtonian fluid $\tau_{rz} = \eta \dot\gamma_{rz}$ to find the shear rate distribution:
+\[
+	\dot\gamma_{rz}
+	=
+	\frac{\tau_{rz}}{\eta}
+	=
+	\frac{\Delta P}{2\eta L} r.
+\]
+
+Integrating the shear rate gives the velocity distribution:
+\begin{align*}
+	u_z(r)
+	&=
+	\int \dot\gamma_{rz}\,dr \\
+	&=
+	\int \frac{\Delta P}{2\eta L} r\,dr \\
+	&=
+	\frac{\Delta P}{4\eta L} r^2 + C_2.
+\end{align*}
+
+Applying the no-slip boundary condition $u_z(R) = 0$ gives
+$C_2 = -\frac{\Delta P}{4\eta L} R^2,$
+so the velocity profile becomes
+\[
+	\boxed{
+	u_z(r) =
+	\frac{\Delta P}{4\eta L}\,(r^2 - R^2)
+	}.
+\]
+
 \textbf{Additional question 1.} Calculate the volume output, $Q$, for the flow of Newtonian liquid.
 
 \textbf{Additional question 2.} Express maximum shear rate via volume output.
@@ -1376,160 +1466,168 @@ Or equivalently,
 		\frac{\sigma - \sigma_Y}{\mu} & \text{if } \sigma \geq \sigma_Y
 	\end{cases}.
 \]
-Driving the flow we have a pressure gradient in the $\hat{z}$ direction (assuming the tube is oriented along the $\hat{z}$ axis). For steady flow, the pressure gradient must be constant,
-\begin{equation}
-	\frac{d\sigma}{dz} = -\frac{\Delta P}{L} = \text{constant}.
-	\label{eq:pressure_gradient}
-\end{equation}
-Pressure gradient $< 0$ since we are saying flow is in the positive $\hat{z}$ direction.
-Our equation for flow is 
-\[
-	\mathbf{u} = (u_r=0, u_\theta=0, u_z(r)),
-\]
-We can solve for $u_z(r)$ using the Navier-Stokes equation:
-\begin{equation}
-	\rho \left( \frac{\partial \mathbf{u}}{\partial t} + \mathbf{u}\cdot\nabla\mathbf{u} \right) = -\nabla p + \nabla\cdot\boldsymbol{\tau}.
-	\label{eq:navier_stokes}
-\end{equation}
-Fist, we can set $\frac{\partial \mathbf{u}}{\partial t} = 0$ for steady flow. Then, we can evaluate $\mathbf{u}\cdot\nabla\mathbf{u}$:
-\[
-	\mathbf{u}\cdot\nabla\mathbf{u}
-	= u_r \frac{\partial u_z}{\partial r} + u_\theta \frac{1}{r}\frac{\partial u_z}{\partial \theta} + u_z \frac{\partial u_z}{\partial z} = 0.
-\]
-Earlier we said that $\frac{d\sigma}{dz} = \text{constant}$, so $\nabla p = \hat{z}\frac{\Delta P}{L}$ is constant.
-Subbing equation \ref{eq:pressure_gradient} and the above results into equation \ref{eq:navier_stokes} gives
-Then we are left with
-\[
-	0 = -\hat{z}\frac{\Delta P}{L} + \nabla\cdot\boldsymbol{\tau}.
-\]
-The \emph{deviatoric stress tensor} $\boldsymbol{\tau}$ is given by
-\[
-	\boldsymbol{\tau} = \mu \left( \nabla\mathbf{u} + (\nabla\mathbf{u})^T \right).
-\]
-Since $\mu$ is constant, we have
 
+Next we want we want to find the shear stress distribution $\sigma_{ij}$ as a function of $r$.
+Starting with the \emph{Navier-Stokes equation}:
+\[
+	\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u}\cdot\nabla)\mathbf{u} \right) = -\nabla p + \nabla\cdot\boldsymbol{\sigma}.
+\]
+Evaluating the left-hand side, we have the following due to the steady flow assumption:
+\[
+	\frac{\partial \mathbf{u}}{\partial t} = 0.
+\]
+And for the other LHS term:
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
+	= u_j \partial_j u_i
+	= u_r \partial_r u_i + u_\theta \tfrac1r\partial_\theta u_i + u_z \partial_z u_i
+\]
+$u_r = u_\theta = 0$ therefore
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_r = 
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_\theta = 0
+\]
+$\mathbf{u} = u_z(r)$
+\[
+	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
+	= u_r \partial_r u_z + u_\theta \tfrac1r\partial_\theta u_z + u_z \partial_z u_z = 0
+\]
+Therefore the whole LHS of the Navier Stokes is zero. Navier-Stokes equation reduces to
+\[
+	\nabla p = \nabla\cdot\boldsymbol{\sigma}.
+\]
+In cylindrical coordinates, the RHS is 
+\[
+	\nabla\cdot\boldsymbol{\sigma} = 
+	\frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz}) + 
+	\frac{1}{r}\frac{\partial \sigma{\theta z}}{\partial \theta} + 
+	\frac{\partial \sigma_{zz}}{\partial z}
+	= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz}).
+\]
+All other terms are zero since $\sigma_{\theta z} = 0$ and $\sigma_{zz}$ is independent of $z$ for steady flow. The pressure gradient is constant, so $\nabla p = \frac{\Delta P}{L}$, and we have
 \begin{align*}
-	0 
-	&= \hat{z}\frac{\Delta P}{L} + \mu\nabla\cdot(\nabla\mathbf{u} + (\nabla\mathbf{u})^T)\\
-	&= \hat{z}\frac{\Delta P}{L} + \mu(\nabla\cdot\nabla\mathbf{u} + \nabla\cdot(\nabla\mathbf{u})^T)\\
-	&= \hat{z}\frac{\Delta P}{L} + \mu(\nabla^2\mathbf{u} + \cancelto{0 \text{ (incompressible)}}{\nabla(\nabla\cdot\mathbf{u}))}\\
-	&= \hat{z}\frac{\Delta P}{L} + \mu\nabla^2\mathbf{u}.
-\end{align*}
-Now we can solve for $\mathbf{u}$ by integrating $\nabla^2\mathbf{u}$ twice. Since $\mathbf{u} = u_z(r)\hat{z}$, we have
-\begin{align*}
-	\nabla^2u_z(r)
+	\frac{\Delta P}{L} &= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz})\\
+	\int \frac{\Delta P}{L}\, r\,dr
+	&= \int \frac{\partial}{\partial r}(r\sigma_{rz})\,dr\\
+	\frac{\Delta P}{L}\frac{r^2}{2} + C_1
+	&= r\sigma_{rz}\\
+	\sigma_{rz}
 	&=
-	\frac{1}{r}\frac{d}{dr}\left(r\frac{du_z}{dr}\right)
-	= -\frac{\Delta P}{\mu L}
-	\\
-	\int d\left(r\frac{du_z}{dr}\right)
-	&= -\frac{\Delta P}{\mu L} \int r dr
-	\\
-	r\frac{du_z}{dr}
-	&= -\frac{\Delta P}{2\mu L}r^2 + C_1
-	\\
-	\frac{du_z}{dr}
-	&= -\frac{\Delta P}{2\mu L}r + \frac{C_1}{r}
-	\\
-	\int du_z
-	&= -\int\left(\frac{\Delta P}{2\mu L}r + \frac{C_1}{r}\right) dr
-	\\
-	u_z(r)
-	&= -\frac{\Delta P}{4\mu L}r^2 + C_1 \ln r + C_2
+	\frac{\Delta P}{2L} r + \frac{C_1}{r}.
 \end{align*}
-From radial symmetry, we have $\frac{du_z(0)}{dr} = 0$, so
+
+The stress must remain finite at the centerline $r=0$, which requires $C_1 = 0$. Therefore
 \[
-	0 = -\frac{\Delta P}{2\mu L}0 + C_1 \ln 0 \implies C_1 = 0.
+	\boxed{\sigma_{rz} = \frac{\Delta P}{2L}\, r}.
 \]
-From the \emph{zero slip} condition at the wall, we have $u_z(R) = 0$, so
-\[
-	0 = -\frac{\Delta P}{4\mu L}R^2 + C_2 \implies C_2 = \frac{\Delta P}{4\mu L}R^2.
-\]
-Therefore, the velocity profile is
-\[
-	\boxed{u_z(r) = \frac{\Delta P}{4\mu L}(R^2 - r^2)}.
-\]
-The shear rate is
-\[
-	\boxed{\dot\gamma(r) = \left|\frac{du_z}{dr}\right| = \frac{\Delta P}{2\mu L}r}.
-\]
-The shear stress is
-\[	
-	\boxed{\sigma(r) = \mu \dot\gamma(r) = \frac{\Delta P}{2L}r}. 
-\]
-This only applies for a Newtonian liquid. For a Bingham fluid, we have to account for the yield stress $\sigma_Y$.
+
 Flow only occurs when $\sigma(r) \geq \sigma_Y$, so there is a region in the center of the tube where $r < r_0$ for which there is no shearing.
 The radius $r_0$ is given by:
 \[
-	\sigma(r_0) = \sigma_Y \implies r_0 = \frac{2L}{\Delta P}\sigma_Y
+	\sigma(r_0) = \sigma_Y \implies r_0 = \frac{2L}{\Delta P}\sigma_Y.
 \]
-Recalling that for out ``Bingham fluid'' $\sigma = \sigma_Y + \mu \dot\gamma$, we can write $\dot\gamma$ as
+
+Recalling that for our ``Bingham fluid'' $\sigma = \sigma_Y + \mu \dot\gamma$, we can write $\dot\gamma$ as
 \[
-	\dot\gamma = \frac{\sigma - \sigma_Y}{\mu} = \frac{\Delta P}{2\mu L}r - \frac{\sigma_Y}{\mu}.
+	\dot\gamma = \frac{\sigma - \sigma_Y}{\mu}
+	= \frac{\Delta P}{2\mu L}r - \frac{\sigma_Y}{\mu}.
 \]
-Adding the requirement that $\dot\gamma = 0$ for $r < r_0$ gives the full shear rate and shear stress distributions:
+
+Adding the requirement that $\dot\gamma = 0$ for $r < r_0$ gives the full shear rate distribution:
 \[
 	\boxed{\dot\gamma = \begin{cases}
 		0 & r < r_0 \\
 		\frac{\Delta P}{2\mu L}r - \frac{\sigma_Y}{\mu} & r \geq r_0
 	\end{cases}}.
 \]
-Now we can substitute $\dot\gamma$ into the Bingham equation to get the shear stress distribution:
-\[
-	\sigma = \sigma_Y + \mu \dot\gamma
-	       = \sigma_Y + \mu \left(\frac{\Delta P}{2\mu L}r - \frac{\sigma_Y}{\mu}\right)
-		   = \frac{\Delta P}{2L}r
-\]
-and so our final shear stress distribution is
-\[
-	\boxed{\sigma = \begin{cases}
-		\sigma_Y & r < r_0 \\
-		\frac{\Delta P}{2L}r & r \geq r_0
-	\end{cases}}.
-\]
 
-
-As you increase $r$, the velocity $u_z$ decreases, so the shear rate $\dot\gamma$ is negative. Therefore, 
+As you increase $r$, the velocity $u_z$ decreases, so the shear rate $\dot\gamma$ is negative. Therefore,
 \[
 	\dot\gamma  = - \frac{du_z}{dr} \implies du_z = -\dot\gamma dr.
 \]
+
 Now we can integrate to get the velocity distribution in the region $r \geq r_0$:
 \[
 	u_z = -\int \dot\gamma dr
 		= -\int \left(\frac{\Delta P}{2\mu L}r - \frac{\sigma_Y}{\mu}\right) dr
-		= -\frac{\Delta P}{4\mu L}r^2 + \frac{\sigma_Y}{\mu}r + C
+		= -\frac{\Delta P}{4\mu L}r^2 + \frac{\sigma_Y}{\mu}r + C.
 \]
+
 From the zero slip condition at the wall, we have
 \[
-	0 = -\frac{\Delta P}{4\mu L}R^2 + \frac{\sigma_Y}{\mu}R + C \implies C = - \frac{\sigma_Y}{\mu}R + \frac{\Delta P}{4\mu L}R^2.
+	0 = -\frac{\Delta P}{4\mu L}R^2 + \frac{\sigma_Y}{\mu}R + C
+	\implies C = - \frac{\sigma_Y}{\mu}R + \frac{\Delta P}{4\mu L}R^2.
 \]
+
 Therefore, the velocity distribution in the region $r \geq r_0$ is
 \[
 	u_z(r) = \frac{\Delta P}{4\mu L}(R^2 - r^2) - \frac{\sigma_Y}{\mu}(R - r).
 \]
-Continuity of velocity at $r = r_0$ gives the full velocity distribution:
+
+For the region $r < r_0$, there is no shearing, so the velocity is constant. The value of this constant is given by the velocity at $r = r_0$:
+\[
+	u_z(r) = \frac{\Delta P}{4\mu L}(R^2 - r_0^2) - \frac{\sigma_Y}{\mu}(R - r_0).
+\]
+
+Recall that
+\[
+	r_0 = \frac{2L}{\Delta P}\sigma_Y \implies \sigma_Y = \frac{\Delta P}{2L}r_0,
+\]
+so
+\[
+	\frac{\sigma_Y}{\mu}(R - r_0)
+	=
+	\frac{\Delta P}{2\mu L}r_0(R - r_0).
+\]
+
+Substituting this into the velocity expression gives
+\[
+	u_z(r)
+	=
+	\frac{\Delta P}{4\mu L}(R^2 - r_0^2)
+	-
+	\frac{\Delta P}{2\mu L}r_0(R - r_0)
+	=
+	\frac{\Delta P}{4\mu L}
+	\left[
+	(R^2 - r_0^2) - 2r_0(R - r_0)
+	\right].
+\]
+\[
+	=
+	\frac{\Delta P}{4\mu L}
+	(R^2 - 2Rr_0 + r_0^2)
+	=
+	\frac{\Delta P}{4\mu L}
+	(R - r_0)^2.
+\]
+
+Then the full velocity distribution is
 \[
 	\boxed{u_z(r) = \begin{cases}
-		\frac{\Delta P}{4\mu L}(R^2 - r_0^2) & r < r_0 \\
+		\frac{\Delta P}{4\mu L}(R - r_0)^2 & r < r_0 \\
 		\frac{\Delta P}{4\mu L}(R^2 - r^2) - \frac{\sigma_Y}{\mu}(R - r) & r \geq r_0
 	\end{cases}}.
 \]
-Finally, we can calculate the volume flow $Q$ by integrating the velocity profile across the cross-sectional area of the tube. Since $d\mathbf{A} = r dr d\theta \hat{z}$ and $\mathbf{u} = u_z(r)\hat{z}$, we have
+
+Finally, we can calculate the volume flow $Q$ by integrating the velocity profile across the cross-sectional area of the tube. Since $d\mathbf{A} = r\,dr\,d\theta\,\hat{z}$ and $\mathbf{u} = u_z(r)\hat{z}$, we have
 \begin{align*}
 Q
 &= 2\pi \int_0^R u_z(r)\, r\,dr \\
 &= 2\pi \left[
-\int_0^{r_0} \frac{\Delta P}{4\mu L}(R^2 - r_0^2) r\,dr
+\int_0^{r_0} \frac{\Delta P}{4\mu L}(R - r_0)^2 r\,dr
 + \int_{r_0}^R \left(\frac{\Delta P}{4\mu L}(R^2 - r^2) - \frac{\sigma_Y}{\mu}(R - r)\right) r\,dr
 \right].
 \end{align*}
+
 For the region $(0 \le r \le r_0)$:
 \begin{align*}
-\int_0^{r_0} \frac{\Delta P}{4\mu L}(R^2 - r_0^2) r\,dr
-&= \frac{\Delta P}{4\mu L}(R^2 - r_0^2)\int_0^{r_0} r\,dr \\
-&= \frac{\Delta P}{4\mu L}(R^2 - r_0^2)\left[\frac{r^2}{2}\right]_0^{r_0} \\
-&= \frac{\Delta P}{8\mu L}(R^2 - r_0^2) r_0^2.
+\int_0^{r_0} \frac{\Delta P}{4\mu L}(R - r_0)^2 r\,dr
+&= \frac{\Delta P}{4\mu L}(R - r_0)^2 \int_0^{r_0} r\,dr \\
+&= \frac{\Delta P}{4\mu L}(R - r_0)^2 \left[\frac{r^2}{2}\right]_0^{r_0} \\
+&= \frac{\Delta P}{8\mu L}(R - r_0)^2 r_0^2.
 \end{align*}
+
 For the region $(r_0 \le r \le R)$:
 \begin{align*}
 \int_{r_0}^R \left(\frac{\Delta P}{4\mu L}(R^2 - r^2) - \frac{\sigma_Y}{\mu}(R - r)\right) r\,dr
@@ -1539,6 +1637,7 @@ For the region $(r_0 \le r \le R)$:
 - \frac{\sigma_Y}{\mu}(Rr - r^2)
 \right]dr.
 \end{align*}
+
 Integrate term-by-term:
 \begin{align*}
 \int R^2 r\,dr &= R^2\frac{r^2}{2}, \qquad
@@ -1546,6 +1645,7 @@ Integrate term-by-term:
 \int Rr\,dr &= R\frac{r^2}{2}, \qquad
 \int r^2\,dr = \frac{r^3}{3}.
 \end{align*}
+
 Plugging the integrals back in gives
 \begin{align*}
 &\int_{r_0}^R \left(\frac{\Delta P}{4\mu L}(R^2 - r^2) - \frac{\sigma_Y}{\mu}(R - r)\right) r\,dr \\
@@ -1555,35 +1655,74 @@ Plugging the integrals back in gives
 - \frac{\sigma_Y}{\mu}\left(R\frac{r^2}{2} - \frac{r^3}{3}\right)
 \right]_{r_0}^{R}.
 \end{align*}
+
 Evaluate at $r=R$:
 \begin{align*}
 &\frac{\Delta P}{4\mu L}\left(\frac{R^4}{2} - \frac{R^4}{4}\right)
 - \frac{\sigma_Y}{\mu}\left(\frac{R^3}{2} - \frac{R^3}{3}\right) \\
 &= \frac{\Delta P}{16\mu L}R^4 - \frac{\sigma_Y}{6\mu}R^3.
 \end{align*}
+
 Evaluate at $r=r_0$:
 \begin{align*}
 \frac{\Delta P}{4\mu L}\left(R^2\frac{r_0^2}{2} - \frac{r_0^4}{4}\right)
 - \frac{\sigma_Y}{\mu}\left(R\frac{r_0^2}{2} - \frac{r_0^3}{3}\right).
 \end{align*}
-Combining both regions give the final expression for $Q$:
+
+Combining both regions gives the final expression for $Q$:
 \begin{align*}
 Q
 &= 2\pi \Bigg[
-\frac{\Delta P}{8\mu L}(R^2 - r_0^2)r_0^2
-+ \frac{\Delta P}{16\mu L}R^4 - \frac{\sigma_Y}{6\mu}R^3 
+\frac{\Delta P}{8\mu L}(R - r_0)^2 r_0^2
++ \frac{\Delta P}{16\mu L}R^4 - \frac{\sigma_Y}{6\mu}R^3
 - \frac{\Delta P}{4\mu L}\left(R^2\frac{r_0^2}{2} - \frac{r_0^4}{4}\right)
 + \frac{\sigma_Y}{\mu}\left(R\frac{r_0^2}{2} - \frac{r_0^3}{3}\right)
-\Bigg] 
+\Bigg]
 \end{align*}
 where $r_0 = \frac{2L\sigma_Y}{\Delta P}$, in terms of the pressure gradient $\Delta P/L$, the yield stress $\sigma_Y$, the plastic viscosity $\mu$, and the tube radius $R$.
+
+
+ 
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/shear_rate_field.png}
+%	\caption{Shear rate field for a Bingham fluid flowing through a tube.}
+%\end{figure}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/shear_stress_field.png}
+%	\caption{Shear stress field for a Bingham fluid flowing through a tube.}
+%\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/velocity_field.png}
+	\caption{Velocity field for a Bingham fluid flowing through a tube.}
+	\label{fig:malkin_3_9_velocity_field}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.32\textwidth]{figures/velocity_field_cross_section.png}
+	\includegraphics[width=0.32\textwidth]{figures/shear_rate_field_cross_section.png}
+	\includegraphics[width=0.32\textwidth]{figures/shear_stress_field_cross_section.png}
+	\caption{Cross-sectional profiles of velocity, shear rate, and shear stress for a Bingham fluid flowing through a tube. The region near the center of the tube (where $r < r_0$) has zero shear rate. The velocity profile is flat in this region and then decreases towards the walls of the tube. The shear stress increases linearly with radius and exceeds the yield stress $\sigma_Y$ at $r = r_0$.}
+	\label{fig:malkin_3_9_cross_section}
+\end{figure} 
 
 
 
 \subsection{3-10 Malkin}
 A ball with a radius $R$ is falling in a Newtonian liquid having viscosity $\eta$. After some transient period, the velocity of ball movement becomes constant. Find the velocity of steady movement.
 
-\emph{I'll do this one next}
+After talking to Dr. Kreplak, you do something like this:
+\[
+	\mathbf{F}_\text{net} = \mathbf{F}_\text{gravity} - \mathbf{F}_\text{drag} = 0.
+\]
+For a sphere, the drag force is given by Stokes' law:
+\[
+	mg = 6\pi \eta R v \implies v = \frac{mg}{6\pi \eta R}.
+\]
+
+
 
 \subsection{3-11 Malkin}
 An experimenter measured the viscous properties of the material at different shear rates and obtained a flow curve. What can he say concerning viscous properties of this material in the uniaxial extension? Explain the answer.
@@ -1616,6 +1755,153 @@ Newtonian viscosity of polymer with molecular mass $M_1=3\times10^5$ is $\eta_1=
 \subsection{3-19 Malkin}
 Experiments show that an electrical charge appears on the surface of the polymer stream leaving a capillary in an unstable or spurt regime. Explain the origin of the charge.
 
+\part{Experimental Methods}
+
+\section{Capillary}
+\subsection{Newtonian fluid}
+In a tube, stress is linear in $r$:
+\begin{equation}
+	\sigma(r) = \frac12 \frac{dp}{dL} r
+	= \sigma(R) \frac{r}{R}.
+\end{equation}
+where $\sigma(R) = \frac12 \frac{dp}{dL} R$ is the stress at the wall of the tube. 
+
+The shear rate is given by
+\begin{equation}
+	\dot\gamma = -\frac{du}{dr} = \frac{1}{\eta}\sigma(r) = \frac{\sigma(R)}{\eta R}r .
+\end{equation}
+
+The velocity profile is given by
+\begin{equation}
+	u(r) = -\int \dot\gamma \, dr = -\frac{\sigma(R)}{\eta R} \int r \, dr = -\frac{\sigma(R)}{\eta R} \frac{r^2}{2} + C.
+\end{equation}
+Applying the no-slip boundary condition $u(R) = 0$ gives
+\[
+	C = \frac{\sigma(R)}{\eta R} \frac{R^2}{2} = \frac{\sigma(R) R}{2\eta}.
+\]
+Therefore, the velocity profile is
+\begin{equation}
+	u(r) = \frac{\sigma(R)}{2\eta R}\left(R^2 - r^2\right)
+\end{equation}
+
+The volume flow rate is given by
+\begin{equation}
+	Q = \frac{\pi PR^4}{8\eta L}.
+\end{equation}
+
+\subsection{Non-Newtonian fluid}
+For a more general solution we have $\dot\gamma = f(\sigma)$, so
+\[
+	Q = \pi \int_0^R r^2 \left| \frac{du}{dr} \right| dr
+\]
+\[
+	\dot\gamma = \sigma(E)^{-3} \int_0^{\sigma_R} \sigma^2 f(\sigma) d\sigma
+\]
+where $\dot\gamma$ is the \emph{average} shear rate.
+Differentiating gives:
+\[
+	\dot\gamma_R = 3\dot\gamma_0 + \sigma_R\frac{d\dot\gamma_0}{d\sigma_R}
+\]
+this is the \textbf{Rabinovitsch--Weissenberg equation}.
+
+\subsection{Corrections}
+In reality, the measurements of viscosity require a number of corrections, which are intended to account for deviations of specific conditions of the experiment from idealized requirements, which were formulated at the beginning of Section 5.2.1. Even in measurements of the viscosity of the Newtonian liquid, deviations from linearity of the dependence of volumetric flow rate on imposed pressure can be observed. These deviations are caused by factors, which lead to the introduction of corrections. Corrections are of general importance in the practice of capillary viscometry.
+
+\subsubsection{Kinetic Correction}
+The difference is energy density (pressure) between the inlet and the outlet has to be equal to the amount of energy dissipated from viscosity. 
+BUT, some of that energy loss comes from the energy required to accelerate the fluid from rest at the inlet to the mean flow velocity $\bar{V}$ in the tube. 
+The energy dissipated by viscosity: subtract the kinetic energy from the total pressure drop.
+
+The \emph{kinetic correction} removes this contribution, isolating only the viscous component of the pressure
+drop. The corrected viscous pressure drop $P_{\text{v}}$ is given by:
+\[
+    P_{\text{v}} = P - P_{\text{k}}
+\]
+where $P$ is the total measured pressure drop and $P_{\text{k}}$ is the kinetic pressure correction:
+\[
+    P_{\text{k}} = \frac{\rho \bar{V}^2}{\alpha} = \frac{\rho Q^2}{\alpha \pi^2 R^4}
+\]
+Here, $\rho$ is the fluid density, $\bar{V}$ is the mean flow velocity, $Q$ is the volumetric flow rate,
+$R$ is the capillary radius, and $\alpha$ is a correction factor that depends on the velocity profile
+($\alpha = \frac{1}{2}$ for a Newtonian fluid with a fully developed parabolic profile).
+
+Bernoulli equation says for inviscid flow, the energy density (pressure) is conserved along a streamline:
+\[
+	P_1 + \frac{1}{2}\rho V_1^2 = P_2 + \frac{1}{2}\rho V_2^2.
+\]
+Because Navier--Stokes:
+\[
+	\rho(\mathbf{u}\cdot\nabla)\mathbf{u} =
+	\rho\nabla\left(\frac{1}{2}|\mathbf{u}|^2\right) = -\nabla P
+	\implies
+	\nabla (P + \frac{1}{2}\rho |\mathbf{u}|^2) = 0.
+\]
+
+
+\subsubsection{Entrance Correction}
+You get weird velocity profiles by the entrance. If your capillary is short, these effects become large.
+
+\subsubsection{Temperature Correction}
+
+\subsubsection{Pressure Correction}
+
+\subsection{Capillary Viscometers}
+
+\section{Rotational Rheometery}
+
+\section{Extensional Rheometery}
+
+\section{Questions}
+
+\subsection*{Question 5-1}
+Melt flow index, MFI, was measured using a capillary with the following dimensions: diameter $d = 2.16$ mm, length $L = 8.0$ mm. The diameter of the barrel was $D = 9.5$ mm. Density of melt was $\rho = 0.8$ g/cm$^3$. Let the weight of a load be $G = 2.16$ kg. Estimate the shear stress attained in this experiment and calculate the apparent viscosity if a measured value of MFI was 2 g/10min.
+
+\textbf{Additional question:} Give a general formula for calculation of apparent viscosity for some arbitrary weight of a load, $G$, and melt flow index, MFI.
+
+\subsection*{Question 5-2}
+How do you calculate the shear rate at a wall for liquid with viscous properties described by a power-law type equation?
+
+\subsection*{Question 5-3}
+Experimental study of the tube flow of suspension gave the following results:
+\begin{itemize}
+    \item for tube I: $D_1 = 2$ cm, $L_1 = 20$ cm, output $\dot{G}_1 = 42$ g/min under pressure $P = 4$ bar;
+    \item for tube II: $D_2 = 4$ cm, $L_2 = 40$ cm, output $\dot{G}_2 = 294$ g/min under pressure $P = 4$ bar.
+\end{itemize}
+Density of suspension was $\rho = 1.4$ g/cm$^3$. Explain the results and estimate the rheological parameters of the material.
+
+\subsection*{Question 5-4}
+Calculate the velocity profile in the flow of Newtonian liquid through an annulus produced by two coaxial cylinders of length $L$. Flow is induced by a pressure gradient $\Delta P$ at the ends of the annulus. The radii of inner and outer cylinders are $R_i$ and $R_o$, respectively.
+
+\textbf{Additional question:} How does one obtain the form-factor for this type of annular flow?
+
+\subsection*{Question 5-5}
+For a rotational viscometer of a coaxial cylinder type, what should be the diameter of an inner cylinder if the diameter of an outer cylinder is 40 mm and the acceptable inhomogeneity of the stress field is 5\%?
+
+\subsection*{Question 5-6}
+In Section 5.7.3, a portable viscometer was described that measures viscosity via time of the turn of a light cylinder from the initial position by a constant angle; the initial deformation is set by twisting of a torsion spring. What is the relationship between measured time and viscosity?
+
+\subsection*{Question 5-7}
+In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?
+
+\subsection*{Question 5-8}
+In Section 5.7.2, the condition of uniform deformation of the sample in oscillation was formulated as $h \ll \delta$. Analyze this condition for inelastic viscous liquid.
+
+\subsection*{Question 5-9}
+Prove that Eq. 5.7.39 is valid for materials exhibiting low losses.
+
+\subsection*{Question 5-10}
+The value of maximum displacement $X_{0B}$ appears in a solution of Eq. 5.7.41 of an equilibrium Eq. 5.7.40, but this value does not appear in Eq. 5.7.44 and other equations for $G'$ and $G''$. Explain why.
+
+\subsection*{Question 5-11}
+Prove that Eqs. 5.7.5 and 5.7.6 give Eqs. 5.7.53 and 5.7.54 for inelastic liquid.
+
+\subsection*{Question 5-12}
+In Section 5.7.6 deformations of the sample were treated as damping oscillations. Is it a unique case of damping deformations? Explain the answer.
+
+\textbf{Additional question:} In which case does the deformation of inelastic liquid become aperiodic but not oscillating?
+
+\subsection*{Question 5-13}
+Eq. 5.3.49 is valid as an approximation only. What should be the exact solution?
 
 
 
