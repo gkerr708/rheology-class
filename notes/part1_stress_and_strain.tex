@@ -1,0 +1,194 @@
+\part{Stress and Strain}
+
+\paragraph{Displacement Tensor:} is defined as:
+\begin{equation}
+	g_{ij} = \frac{\partial u_i}{\partial x_j}.
+\end{equation}
+This says how the displacement vector $u_i$ changes as we move in the $x_j$ direction.
+This can be decomposed into a symmetric and an antisymmetric part:
+\begin{equation}
+	g_{ij} = \underbrace{\frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right)}_{\text{symmetric part}} +
+	\underbrace{\frac12 \left(\frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i}\right)}_{\text{antisymmetric part}}
+	= d_{ij} + \theta_{ij}
+\end{equation}
+where $d_{ij}$ is the \textit{deformation tensor} and $\theta_{ij}$ is the \textit{rotation tensor}.
+This is important because the rotation tensor does not contribute to strain, only the deformation tensor does.
+
+\paragraph{Deformation Tensor:}
+For large deformations we have the \textit{full} equation:
+\begin{equation}
+	\varepsilon_{ij} = 
+	\frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) +
+	\frac12 \left(\frac{\partial^2 u_1}{\partial x_i \partial x_j} +
+	\frac{\partial^2 u_2}{\partial x_i \partial x_j} +
+	\frac{\partial^2 u_3}{\partial x_i \partial x_j} \right).
+\end{equation}
+
+For small deformations, $\varepsilon_{ij} \ll 1$, the higher order terms can be neglected:
+\begin{equation}
+	d_{ij} = \frac12 \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) .
+\end{equation}
+
+$d_{ij}$ can be further decomposed into a volumetric and a deviatoric part:
+\begin{equation}
+	d_{ij} = \underbrace{\tfrac13 \varepsilon_{V} \delta_{ij}}_{\text{volumetric part}} +
+	\underbrace{d_{ij}^{\text{(Dev)}}}_{\text{deviatoric part}}
+\end{equation}
+where $\varepsilon_V = \text{tr}(d_{ij}) = d_1 + d_2 + d_3$ is the volumetric strain.
+$d_{i}$ are the principal strains, i.e. the eigenvalues of the deformation tensor (same as with stress).
+
+
+\paragraph{Stretch Ratios:}
+The stretch ratio in the $i$ direction is defined as:
+\begin{equation}
+	\lambda_i = \frac{\Delta l + l_0}{l_0} 
+\end{equation}
+as opposed to strain which is defined as:
+\begin{equation}
+	\epsilon_i = \frac{\Delta l}{l_0} = \lambda_i - 1
+\end{equation}
+which means that $\lambda = 1$ corresponds to no stretch, while $\epsilon = 0$ corresponds to no strain.
+
+\paragraph{Finite Strains are not Additive:}
+If we have two consecutive strains $\epsilon_1$ and $\epsilon_2$, the total strain is not simply their sum.
+Then $\lambda$ becomes useful because stretch ratios are multiplicative
+\footnote{The total stretch from $l_0\to l_1$ and $l_1\to l_2$ is $\frac{l_2}{l_0} = \frac{l_2}{l_1}\frac{l_1}{l_0}$.}. 
+Therefore $\ln(\lambda)$ would be Additive.
+This is called the \textit{Hencky Strain} or \textit{True Strain} and is defined as:
+\begin{equation}
+	\epsilon^H = \ln(\lambda) = \ln(1 + \varepsilon_{\text{eng}}).
+\end{equation}
+
+\paragraph{Cauchy-Green Tensor:}
+The Cauchy-Green deformation tensor is defined as:
+\begin{equation}
+	C_{ij} = \delta_{ij} + 2 \varepsilon_{ij}.
+\end{equation}
+\begin{equation}
+	\varepsilon_{ij} = \frac12 \begin{bmatrix}
+		\frac{l_x^2 - l_{0x}^2}{l_{0x}^2} & 0 & 0 \\
+		0 & \frac{l_y^2 - l_{0y}^2}{l_{0y}^2} & 0 \\
+		0 & 0 & \frac{l_z^2 - l_{0z}^2}{l_{0z}^2}
+	\end{bmatrix} \implies
+	C_{ij} = \begin{bmatrix}
+		\frac{l_x^2}{l_{0x}^2} & 0 & 0 \\
+		0 & \frac{l_y^2}{l_{0y}^2} & 0 \\
+		0 & 0 & \frac{l_z^2}{l_{0z}^2}
+	\end{bmatrix}
+\end{equation}
+So if $\varepsilon_{ij}$ is the strain tensor, then $C_{ij}$ is the stretch tensor squared.
+
+I think there's a mistake here where some of those values shouldn't be squared. \blue{Check this.}
+
+The principal values of $C_{ij}$ are related to the stretch ratios as:
+\begin{equation}
+	C_i = \lambda_i^2, \quad C_i^{-1} = \lambda_i^{-2}.
+\end{equation}
+
+The principal directions $n_i$ are given by the eigenvalue equation:
+\begin{equation}
+	C_{ij} n_j = \lambda_i^2 n_i,
+\end{equation}
+but often we just work in the principal basis where $C_{ij}$ is diagonal. Then
+\begin{equation}
+	C_{ij} = \begin{bmatrix}
+		\lambda_1^2 & 0 & 0 \\
+		0 & \lambda_2^2 & 0 \\
+		0 & 0 & \lambda_3^2
+	\end{bmatrix}, 
+\end{equation}
+with basis vectors 
+$n_1 = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix},
+n_2 = \begin{bmatrix}0 \\ 1 \\ 0\end{bmatrix},
+n_3 = \begin{bmatrix}0 \\ 0 \\ 1\end{bmatrix}$.
+
+As far as I can tell $C_{ij}$ is mainly useful (as opposed to $\varepsilon_{ij}$) is because you get $\lambda_i$ directly from the eigenvalues.
+$\lambda_i$ are useful because of the multiplicative property mentioned above and the invariant volume change:
+\begin{equation}
+	\Delta V / V_0 = \lambda_1 \lambda_2 \lambda_3 - 1.
+\end{equation}
+
+
+\section{Practice Problems}
+
+\subsection{Stress in a Thin Walled Pressure Vessel (Pg. 15 Malkin)}
+We have a thin walled cylindrical pressure vessel.
+We want to know what is the stress $\sigma_\theta$ in the circumferential direction and $\sigma_z$ in the axial direction.
+The internal pressure is $p$, the radius is $R$ and the wall thickness is $\delta$.
+
+Start with $dF = p \, \mathbf{n} \dot d\mathbf{A}$, where $\mathbf{n}$ is the direction of the force we consider.
+We can simplify this to $dF = p \cos(\theta) \, dA$, then integrate over the area.
+\begin{equation}
+	F = \int dA \, p \cos(\theta)  
+	= p \int_{-\pi/2}^{\pi/2} \int_0^L R \, d\theta \, dz \, \cos(\theta)
+	= 2 p R L
+	\label{eq:1.1}
+\end{equation}
+Then this is balanced by the stress in the wall:
+\[
+	\sigma_\theta = \frac{F}{2 \delta L}.
+\]
+Then substituting Eq. \ref{eq:1.1} gives:
+\[
+	\sigma_\theta = \frac{p R}{\delta}.
+\]
+For the axial stress, we consider the area of the circular cross section:
+\[
+	F = p \pi R^2.
+\]
+This Force is distributed across $2 \pi R \delta$ so:
+
+
+Now we'll look at the case where you have torque allies to the inner or the outer wall of the cylinder.
+In this case we have:
+\[
+	\frac{dT}{R}
+	= \sigma \, dA = \sigma \, R \, d\theta \, \delta
+	\implies
+	dT = \sigma \, R^2 \, \delta \, d\theta.
+\]
+
+Integrating over $\theta$ from $0$ to $2\pi$ gives:
+\[
+	T = \int_0^{2\pi} \sigma \, R^2 \, \delta \, d\theta
+	= 2 \pi \sigma R^2 \delta
+	\implies
+	\sigma = \frac{T}{2 \pi R^2 \delta}.
+\]
+
+The final answer according to Malkin is:
+\[
+	\sigma = \frac{2T}{\pi (2 R + \delta)^2 \delta}.
+\]
+
+\subsection{Hemispherical Cup under its Own Weight (Q 1-7 Malkin)}
+Calculate the stresses in a hemispherical cup loaded by its own weight. Such a case is part of many engineering designs, for example, in a spherical roof covering a large area of a stadium or a warehouse.
+
+\[
+A(\varphi)=\int_{0}^{2\pi}\int_{0}^{\varphi} R^2\sin\varphi'\,d\varphi'\,d\theta
+=2\pi R^2(1-\cos\varphi).
+\]
+Hence its weight is
+\[
+W(\varphi)=\rho g \delta A(\varphi)=2\pi \rho g \delta R^2(1-\cos\varphi).
+\]
+
+\paragraph{Important note (about the rim).}
+The expression for $N_\theta$ involves a factor $1/\cos\varphi$, so as $\varphi\to \pi/2$
+(the rim), the membrane solution becomes singular.
+This is a classic sign that the \emph{pure membrane} assumption breaks down near the boundary:
+the actual stress state near the rim depends on how the cup is supported (ring beam, clamp, free edge),
+and bending effects become important in a boundary layer.
+The meridional resultant $N_\varphi$ above is robust (it comes from global vertical equilibrium),
+but the detailed hoop stress near the rim requires boundary conditions and (typically) bending theory.
+
+\subsection{Liquid between Coaxial Cylinders (Q 1-8 Malkin)}
+Let liquid be placed between two coaxial cylinders with radii $R_o$ (outer) and $R_i$ (inner).  The gap between cylinders $\Delta = R_o - R_i$ is small in comparison with the cylinder radii. Let  the outer cylinder rotate with an angular velocity, $\Omega$. Then, the assembly of both cylinders begins to rotate with the same angular velocity, $\omega$. What are the shear rates and gradients of velocity in these two cases?
+
+\[
+	\dot\varepsilon = \frac{d}{dr}\frac{du_\theta}{dt}
+	= \frac{d}{dr}\Omega R
+	= \frac{\Omega R}{\Delta}
+\]
+
+

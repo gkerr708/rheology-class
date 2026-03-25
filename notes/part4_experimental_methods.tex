@@ -1,0 +1,249 @@
+\part{Experimental Methods}
+
+\section{Capillary}
+\subsection{Newtonian fluid}
+In a tube, stress is linear in $r$:
+\begin{equation}
+	\sigma(r) = \frac12 \frac{dp}{dL} r
+	= \sigma(R) \frac{r}{R}.
+\end{equation}
+where $\sigma(R) = \frac12 \frac{dp}{dL} R$ is the stress at the wall of the tube. 
+
+The shear rate is given by
+\begin{equation}
+	\dot\gamma = -\frac{du}{dr} = \frac{1}{\eta}\sigma(r) = \frac{\sigma(R)}{\eta R}r .
+\end{equation}
+
+The velocity profile is given by
+\begin{equation}
+	u(r) = -\int \dot\gamma \, dr = -\frac{\sigma(R)}{\eta R} \int r \, dr = -\frac{\sigma(R)}{\eta R} \frac{r^2}{2} + C.
+\end{equation}
+Applying the no-slip boundary condition $u(R) = 0$ gives
+\[
+	C = \frac{\sigma(R)}{\eta R} \frac{R^2}{2} = \frac{\sigma(R) R}{2\eta}.
+\]
+Therefore, the velocity profile is
+\begin{equation}
+	u(r) = \frac{\sigma(R)}{2\eta R}\left(R^2 - r^2\right)
+\end{equation}
+
+The volume flow rate is given by
+\begin{equation}
+	Q = \frac{\pi PR^4}{8\eta L}.
+\end{equation}
+
+\subsection{Non-Newtonian fluid}
+For a more general solution we have $\dot\gamma = f(\sigma)$, so
+\[
+	Q = \pi \int_0^R r^2 \left| \frac{du}{dr} \right| dr
+\]
+\[
+	\dot\gamma = \sigma(E)^{-3} \int_0^{\sigma_R} \sigma^2 f(\sigma) d\sigma
+\]
+where $\dot\gamma$ is the \emph{average} shear rate.
+Differentiating gives:
+\[
+	\dot\gamma_R = 3\dot\gamma_0 + \sigma_R\frac{d\dot\gamma_0}{d\sigma_R}
+\]
+this is the \textbf{Rabinovitsch--Weissenberg equation}.
+
+\subsection{Corrections}
+In reality, the measurements of viscosity require a number of corrections, which are intended to account for deviations of specific conditions of the experiment from idealized requirements, which were formulated at the beginning of Section 5.2.1. Even in measurements of the viscosity of the Newtonian liquid, deviations from linearity of the dependence of volumetric flow rate on imposed pressure can be observed. These deviations are caused by factors, which lead to the introduction of corrections. Corrections are of general importance in the practice of capillary viscometry.
+
+\subsubsection{Kinetic Correction}
+The difference is energy density (pressure) between the inlet and the outlet has to be equal to the amount of energy dissipated from viscosity. 
+BUT, some of that energy loss comes from the energy required to accelerate the fluid from rest at the inlet to the mean flow velocity $\bar{V}$ in the tube. 
+The energy dissipated by viscosity: subtract the kinetic energy from the total pressure drop.
+
+The \emph{kinetic correction} removes this contribution, isolating only the viscous component of the pressure
+drop. The corrected viscous pressure drop $P_{\text{v}}$ is given by:
+\[
+    P_{\text{v}} = P - P_{\text{k}}
+\]
+where $P$ is the total measured pressure drop and $P_{\text{k}}$ is the kinetic pressure correction:
+\[
+    P_{\text{k}} = \frac{\rho \bar{V}^2}{\alpha} = \frac{\rho Q^2}{\alpha \pi^2 R^4}
+\]
+Here, $\rho$ is the fluid density, $\bar{V}$ is the mean flow velocity, $Q$ is the volumetric flow rate,
+$R$ is the capillary radius, and $\alpha$ is a correction factor that depends on the velocity profile
+($\alpha = \frac{1}{2}$ for a Newtonian fluid with a fully developed parabolic profile).
+
+Bernoulli equation says for inviscid flow, the energy density (pressure) is conserved along a streamline:
+\[
+	P_1 + \frac{1}{2}\rho V_1^2 = P_2 + \frac{1}{2}\rho V_2^2.
+\]
+Because Navier--Stokes:
+\[
+	\rho(\mathbf{u}\cdot\nabla)\mathbf{u} =
+	\rho\nabla\left(\frac{1}{2}|\mathbf{u}|^2\right) = -\nabla P
+	\implies
+	\nabla (P + \frac{1}{2}\rho |\mathbf{u}|^2) = 0.
+\]
+
+
+\subsubsection{Entrance Correction}
+You get weird velocity profiles by the entrance. If your capillary is short, these effects become large.
+
+Because of this, there is additional energy loss at the entrance. To account for this, you add an extra bit of length to your capillary (for the calculation). This is called the \textbf{entrance correction}. The additional length is ``Expressed through the radius" $R$ as $m_K R$.
+
+If you plot \emph{pressure} vs $L/R$, without the correction you would expect that the plot is a straight line that crosses the origin. With the correction, the plot is a straight line that crosses the $x$-axis at $-m_K$ and crosses the $y$-axis at $P_K$.
+
+Stress at the wall is given by
+\[
+	\sigma_R = \frac{PR}{2L}
+	\implies
+	\sigma_R = \frac{PR}{2(L + m_K R)}.
+\]
+
+\subsubsection{Temperature Correction}
+\subsubsection{Pressure Correction}
+\subsection{Capillary Viscometers}
+
+\section{Rotational Rheometry}
+
+In a rotational rheometer, we measure two things: the applied \textbf{torque} $T$ 
+and the \textbf{angular velocity} $\Omega$. From these, we extract viscosity.
+
+\subsection{The Couette (Cylinder-Cylinder) Geometry}
+
+A fluid is trapped in the narrow gap between two coaxial cylinders of inner and 
+outer radii $R_i$ and $R_o$. The inner cylinder rotates at angular velocity $\Omega$; 
+the outer is fixed. The fluid resists this rotation, and that resistance is what 
+we measure as torque.
+
+The torque transmitted through any cylindrical shell of radius $r$ in the fluid is:
+\begin{equation}
+    T = 2\pi r^2 h\, \sigma(r)
+\end{equation}
+where $h$ is the fill height and $\sigma(r)$ is the local shear stress. Since torque 
+must be the same at every radius (equilibrium), the stress distribution follows:
+\begin{equation}
+    \sigma(r) = \sigma_i \left(\frac{R_i}{r}\right)^2
+\end{equation}
+Stress is therefore largest at the inner cylinder and falls off as $1/r^2$.
+
+\subsubsection{Why a Narrow Gap Matters}
+
+Define the radius ratio $\varepsilon = R_o/R_i$. The ratio of stresses at the two 
+walls is:
+\begin{equation}
+    \frac{\sigma_i}{\sigma_o} = \varepsilon^2
+\end{equation}
+When $\varepsilon \approx 1$ (a narrow gap), $\sigma_i \approx \sigma_o$, meaning 
+the stress is nearly \emph{uniform} across the fluid. This is the key practical 
+advantage of this geometry --- the entire sample experiences essentially the same 
+shear stress, making the measurement straightforward to interpret.
+
+\subsubsection{Extracting Viscosity: The Margules Equation}
+
+For a Newtonian fluid, integrating the velocity profile across the gap gives the 
+\textbf{Margules equation}:
+\begin{equation}
+    \eta = \frac{T}{\Omega} \cdot \underbrace{\frac{R_o^2 - R_i^2}{4\pi R_o^2 
+    R_i^2 h}}_{K}
+\end{equation}
+The factor $K$ depends only on geometry. This can be written compactly as:
+\begin{equation}
+    \eta = K\frac{T}{\Omega}
+\end{equation}
+So viscosity is simply proportional to the measured torque-to-speed ratio. 
+
+\textbf{A useful check:} if $T/\Omega$ is constant across different rotation 
+speeds, the fluid is Newtonian. If it varies, the fluid is non-Newtonian.
+
+\subsection{Parallel Plate (Disk--Disk) Geometry}
+For a parallelplate geometry, we can derive the relationship between torque and viscosity by considering the forces and stresses acting on the fluid.
+
+Consider a thin annular ring at radius $r$ with width $dr$. The shear force acting on this ring is:
+\begin{equation}
+	dF = \sigma(r) \cdot 2\pi r \, dr
+\end{equation}
+where $\sigma(r)$ is the shear stress at radius $r$.
+
+The total torque is obtained by integrating the moment contribution from each ring:
+\begin{equation}
+	T = \int_0^R r \, dF = 2\pi \int_0^R r^2 \sigma(r) \, dr
+\end{equation}
+
+For a Newtonian fluid, the shear stress is related to the shear rate by:
+\begin{equation}
+	\sigma(r) = \eta \dot{\gamma}(r)
+\end{equation}
+
+In the parallel plate geometry, the shear rate is derived from its fundamental definition $\dot{\gamma} = \frac{du}{dy}$. 
+
+The bottom plate is stationary while the top plate rotates with angular velocity $\Omega$. At radius $r$, the top plate has tangential velocity $r\Omega$. Assuming a linear velocity profile across the gap height $h$, the velocity gradient is:
+$$\frac{du}{dy} = \frac{r\Omega - 0}{h - 0} = \frac{r\Omega}{h}$$
+
+Therefore, the shear rate varies linearly with radius:
+\begin{equation}
+	\dot{\gamma}(r) = \frac{r\Omega}{h}
+\end{equation}
+where $\Omega$ is the angular velocity of the rotating plate and $h$ is the gap height between the plates.
+
+Substituting this into the torque equation:
+\begin{equation}
+	T = 2\pi \int_0^R r^2 \eta \frac{r\Omega}{h} \, dr = \frac{2\pi \eta \Omega}{h} \int_0^R r^3 \, dr = \frac{2\pi \eta \Omega}{h} \cdot \frac{R^4}{4} = \frac{\pi \eta \Omega R^4}{2h}
+\end{equation}
+
+Therefore, the viscosity can be determined from the measured torque and angular velocity:
+\begin{equation}
+	\eta = \frac{2hT}{\pi \Omega R^4}
+\end{equation}
+
+\section{Extensional Rheometery}
+
+\section{Questions}
+
+\subsection*{Question 5-1}
+Melt flow index, MFI, was measured using a capillary with the following dimensions: diameter $d = 2.16$ mm, length $L = 8.0$ mm. The diameter of the barrel was $D = 9.5$ mm. Density of melt was $\rho = 0.8$ g/cm$^3$. Let the weight of a load be $G = 2.16$ kg. Estimate the shear stress attained in this experiment and calculate the apparent viscosity if a measured value of MFI was 2 g/10min.
+
+\textbf{Additional question:} Give a general formula for calculation of apparent viscosity for some arbitrary weight of a load, $G$, and melt flow index, MFI.
+
+\subsection*{Question 5-2}
+How do you calculate the shear rate at a wall for liquid with viscous properties described by a power-law type equation?
+
+\subsection*{Question 5-3}
+Experimental study of the tube flow of suspension gave the following results:
+\begin{itemize}
+    \item for tube I: $D_1 = 2$ cm, $L_1 = 20$ cm, output $\dot{G}_1 = 42$ g/min under pressure $P = 4$ bar;
+    \item for tube II: $D_2 = 4$ cm, $L_2 = 40$ cm, output $\dot{G}_2 = 294$ g/min under pressure $P = 4$ bar.
+\end{itemize}
+Density of suspension was $\rho = 1.4$ g/cm$^3$. Explain the results and estimate the rheological parameters of the material.
+
+\subsection*{Question 5-4}
+Calculate the velocity profile in the flow of Newtonian liquid through an annulus produced by two coaxial cylinders of length $L$. Flow is induced by a pressure gradient $\Delta P$ at the ends of the annulus. The radii of inner and outer cylinders are $R_i$ and $R_o$, respectively.
+
+\textbf{Additional question:} How does one obtain the form-factor for this type of annular flow?
+
+\subsection*{Question 5-5}
+For a rotational viscometer of a coaxial cylinder type, what should be the diameter of an inner cylinder if the diameter of an outer cylinder is 40 mm and the acceptable inhomogeneity of the stress field is 5\%?
+
+\subsection*{Question 5-6}
+In Section 5.7.3, a portable viscometer was described that measures viscosity via time of the turn of a light cylinder from the initial position by a constant angle; the initial deformation is set by twisting of a torsion spring. What is the relationship between measured time and viscosity?
+
+\subsection*{Question 5-7}
+In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?
+
+\subsection*{Question 5-8}
+In Section 5.7.2, the condition of uniform deformation of the sample in oscillation was formulated as $h \ll \delta$. Analyze this condition for inelastic viscous liquid.
+
+\subsection*{Question 5-9}
+Prove that Eq. 5.7.39 is valid for materials exhibiting low losses.
+
+\subsection*{Question 5-10}
+The value of maximum displacement $X_{0B}$ appears in a solution of Eq. 5.7.41 of an equilibrium Eq. 5.7.40, but this value does not appear in Eq. 5.7.44 and other equations for $G'$ and $G''$. Explain why.
+
+\subsection*{Question 5-11}
+Prove that Eqs. 5.7.5 and 5.7.6 give Eqs. 5.7.53 and 5.7.54 for inelastic liquid.
+
+\subsection*{Question 5-12}
+In Section 5.7.6 deformations of the sample were treated as damping oscillations. Is it a unique case of damping deformations? Explain the answer.
+
+\textbf{Additional question:} In which case does the deformation of inelastic liquid become aperiodic but not oscillating?
+
+\subsection*{Question 5-13}
+Eq. 5.3.49 is valid as an approximation only. What should be the exact solution?
+
+
+
