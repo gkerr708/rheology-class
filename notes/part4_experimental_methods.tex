@@ -216,6 +216,11 @@ Calculate the velocity profile in the flow of Newtonian liquid through an annulu
 
 \textbf{Additional question:} How does one obtain the form-factor for this type of annular flow?
 
+Navier--Stokes with steady state ($\frac{D\mathbf{u}}{dt}=0\frac{D\mathbf{u}}{dt}$)
+\[
+	\frac{D\mathbf{u}}{dt} = -\nabla P + \eta \nabla^2 u
+\]
+
 \subsection*{Question 5-5}
 For a rotational viscometer of a coaxial cylinder type, what should be the diameter of an inner cylinder if the diameter of an outer cylinder is 40 mm and the acceptable inhomogeneity of the stress field is 5\%?
 
@@ -223,7 +228,47 @@ For a rotational viscometer of a coaxial cylinder type, what should be the diame
 In Section 5.7.3, a portable viscometer was described that measures viscosity via time of the turn of a light cylinder from the initial position by a constant angle; the initial deformation is set by twisting of a torsion spring. What is the relationship between measured time and viscosity?
 
 \subsection*{Question 5-7}
-In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?
+\textit{In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?}
+
+The spring and sample are in series so the stress $\sigma$ is the same but the total deformation is the sum:
+\[
+	\gamma_\text{total} = \gamma_\text{spring} + \gamma_\text{sample}.
+\]
+For a strain $\gamma = \gamma_0 e^{i\omega t}$, the stress in a linear viscoelastic material is:
+\[
+	\sigma = G^* \gamma = (G' + iG'')\gamma_0 e^{i\omega t} \implies 
+	\frac{\gamma}{\sigma} = \frac{1}{G^*}.
+\]
+Dividing through by $\sigma$ gives the compliances:
+\[
+	\frac{\gamma_\text{total}}{\sigma} = \frac{\gamma_\text{spring}}{\sigma} + \frac{\gamma_\text{sample}}{\sigma}
+	\implies
+	\frac{1}{G^*_\text{total}} = \frac{1}{G^*_\text{spring}} + \frac{1}{G^*_\text{sample}}.
+\]
+Then we can solve for the compliance of the material in terms of the measured compliance and then compliance of the spring.
+\begin{equation}
+	G^*_{\text{sample}} = \frac{G^*_{\text{spring}}\, G^*_\text{total}}{G^*_{\text{spring}} - G^*_\text{total}}
+\end{equation}
+
+If we replace the spring with a perfectly rigid object, the correction should no longer be needed.
+\begin{equation}
+	G^*_\text{total}
+	\lim_{G^*_{\text{spring}} \to\infty}
+	\frac{G^*_\text{total}}{1 - G^*_\text{total}/ G^*_{\text{spring}}} = 
+	G^*_\text{total}
+\end{equation}
+and it does.
+
+There's a change all of this is wrong.
+Malkin does it in a weird way.
+Maybe this is not exactly what he does but it's something like this.
+For a rigid system
+\[
+	m\ddot x + Z \dot x + k x = 0
+\]
+Where $k$ and $Z$ are the storage and the loss modules of the system.
+
+
 
 \subsection*{Question 5-8}
 In Section 5.7.2, the condition of uniform deformation of the sample in oscillation was formulated as $h \ll \delta$. Analyze this condition for inelastic viscous liquid.
@@ -238,9 +283,9 @@ The value of maximum displacement $X_{0B}$ appears in a solution of Eq. 5.7.41 o
 Prove that Eqs. 5.7.5 and 5.7.6 give Eqs. 5.7.53 and 5.7.54 for inelastic liquid.
 
 \subsection*{Question 5-12}
-In Section 5.7.6 deformations of the sample were treated as damping oscillations. Is it a unique case of damping deformations? Explain the answer.
+\textit{In Section 5.7.6 deformations of the sample were treated as damping oscillations. Is it a unique case of damping deformations? Explain the answer.}
 
-\textbf{Additional question:} In which case does the deformation of inelastic liquid become aperiodic but not oscillating?
+\textit{\textbf{Additional question:} In which case does the deformation of inelastic liquid become aperiodic but not oscillating?}
 
 \subsection*{Question 5-13}
 Eq. 5.3.49 is valid as an approximation only. What should be the exact solution?
