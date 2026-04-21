@@ -117,40 +117,40 @@ G(\theta)
 \label{eq:relaxation_spectrum_kohlrausch}
 \end{equation}
 
-Does this converge?
-\[
-	\int_0^\infty G(\theta) d\theta
-	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \int_0^\infty \theta^{nk - 1} d\theta
-\]
-We know that $0 < n < 1$, so $nk - 1 > -1$ for $k \geq 1$.
-Therefore the integral diverges:
-\[
-	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \cdot \infty
-\]
- 
-\subsection{Simulation}
-When I try to simulate Eq. \ref{eq:relaxation_spectrum_kohlrausch} it doesn't converge well.
-This is likely because of the $\Gamma(-nk)$ term in the denominator which diverges for integer $nk$ and therefore isn't numerically stable.
-To fix this we use the Euler's reflection formula:
-\[
-	\Gamma(z) \Gamma(1 - z) = \frac{\pi}{\sin(\pi z)}
-	\implies
-	\Gamma(-nk) = \frac{-\pi}{\sin(\pi nk) \Gamma(1 + nk)}.
-\]
-Substituting this into Eq. \ref{eq:relaxation_spectrum_kohlrausch} gives:
-\[
-G(\theta)
-=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^{k+1}}{k!}\,
-\frac{\sin(\pi nk)}{\pi}\,\Gamma(1+nk)
-\left(\frac{\theta}{\theta_K}\right)^{nk},
-\qquad (0<n<1).
-\]
-We can attempt to show numerically that
-\[
-	\int_0^\infty G(\theta) e^{-t/\theta} d\theta
-	\approx e^{-(t/\theta_K)^n}
-\]
-After trying this in python it \emph{does} blow up.
+%Does this converge?
+%\[
+%	\int_0^\infty G(\theta) d\theta
+%	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \int_0^\infty \theta^{nk - 1} d\theta
+%\]
+%We know that $0 < n < 1$, so $nk - 1 > -1$ for $k \geq 1$.
+%Therefore the integral diverges:
+%\[
+%	= \sum_{k=1}^\infty \frac{(-1)^k}{k! \Gamma(-nk)} \theta_K^{-nk} \cdot \infty
+%\]
+% 
+%\subsection{Simulation}
+%When I try to simulate Eq. \ref{eq:relaxation_spectrum_kohlrausch} it doesn't converge well.
+%This is likely because of the $\Gamma(-nk)$ term in the denominator which diverges for integer $nk$ and therefore isn't numerically stable.
+%To fix this we use the Euler's reflection formula:
+%\[
+%	\Gamma(z) \Gamma(1 - z) = \frac{\pi}{\sin(\pi z)}
+%	\implies
+%	\Gamma(-nk) = \frac{-\pi}{\sin(\pi nk) \Gamma(1 + nk)}.
+%\]
+%Substituting this into Eq. \ref{eq:relaxation_spectrum_kohlrausch} gives:
+%\[
+%G(\theta)
+%=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^{k+1}}{k!}\,
+%\frac{\sin(\pi nk)}{\pi}\,\Gamma(1+nk)
+%\left(\frac{\theta}{\theta_K}\right)^{nk},
+%\qquad (0<n<1).
+%\]
+%We can attempt to show numerically that
+%\[
+%	\int_0^\infty G(\theta) e^{-t/\theta} d\theta
+%	\approx e^{-(t/\theta_K)^n}
+%\]
+%After trying this in python it \emph{does} blow up.
 
 
 \section{2-8 Malkin}
@@ -454,6 +454,8 @@ so
 
 \textit{3-6: Calculate the radial distribution of shear rates and flow velocity of Newtonian liquid (having viscosity $\eta$) through a straight tube with radius $R$.}
 
+I decided to combine these because the first first part of 3-6 entirely answers 3-5.
+
 Starting with the \emph{Navier-Stokes equation}:
 \[
 	\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u}\cdot\nabla)\mathbf{u} \right) = -\nabla p + \nabla\cdot\boldsymbol{\sigma}.
@@ -544,11 +546,52 @@ so the velocity profile becomes
 	}.
 \]
 
-\textbf{Additional question 1.} Calculate the volume output, $Q$, for the flow of Newtonian liquid.
+\textbf{Additional question 1.} \textit{Calculate the volume output, $Q$, for the flow of Newtonian liquid.}
 
-\textbf{Additional question 2.} Express maximum shear rate via volume output.
+The flow rate is given by
+\[
+	Q = \int \mathbf{u} \cdot d\mathbf{S}.
+\]
+All of the flow field $\mathbf{u}$ has the same direction as the outlet $S$ so
+\[
+	Q = \int u\, dS.
+\]
+The surface is just the cross sectional area of the pipe:
+\[
+	Q = \int_0^R \int_0^{2\pi} u\, r\, dr\, d\theta
+	  = 2\pi\int_0^R  u\, r\, dr
+\]
+\[
+	Q = 2\pi  \frac{\Delta P}{4\eta L}\int_0^R\,(r^2 - R^2) r dr
+\]
+\[
+	\int_0^R r^3 dr = \frac{R^4}{4}, \quad
+	R^2 \int_0^R r dr = \frac{R^4}{2}
+\]
+\[
+	Q = 2\pi  \frac{\Delta P}{4\eta L}
+	\left(\frac{R^4}{4} - \frac{R^4}{2}\right)
+	= \boxed{\frac{\pi \Delta P R^4}{8\eta L}}
+\]
 
-\textbf{Additional question 3.} Is the last expression valid for a liquid with arbitrary rheological properties?
+\textbf{Additional question 2.} \textit{Express maximum shear rate via volume output.}
+From earlier we have:
+\[
+	\sigma_{rx} = \frac{\Delta P r}{2 L}.
+\]
+$r\in[0,R]$, therefore:
+\[
+	\sigma_\text{max} = \frac{\Delta P R}{2 L}.
+\]
+\[
+	Q = \frac{\pi R^3}{4\eta} \frac{\Delta P R}{2 L} = \frac{\pi R^3}{4\eta} \sigma_\text{max}
+	\implies \sigma_\text{max} =  \boxed{\frac{4\eta Q}{\pi R^3}}
+\]
+
+
+\textbf{Additional question 3.} \textit{Is the last expression valid for a liquid with arbitrary rheological properties?}
+
+No, in our derivation we assumed that $\sigma \propto \dot\gamma$. If we violate that assumption, we would need to modify our equation accordingly.
 
 \section{3-9 Malkin}
 \textit{Analyze the flow of a viscoplastic (``Bingham-type'') liquid through a straight tube of radius $R$. Find radial stress and velocity distributions and calculate volume output as a function of the pressure gradient.}
@@ -814,43 +857,88 @@ where $r_0 = \frac{2L\sigma_Y}{\Delta P}$, in terms of the pressure gradient $\D
 \section{5-7 Malkin}
 \textit{In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?}
 
-The spring and sample are in series so the stress $\sigma$ is the same but the total deformation is the sum:
-\[
-	\gamma_\text{total} = \gamma_\text{spring} + \gamma_\text{sample}.
-\]
-For a strain $\gamma = \gamma_0 e^{i\omega t}$, the stress in a linear viscoelastic material is:
-\[
-	\sigma = G^* \gamma = (G' + iG'')\gamma_0 e^{i\omega t} \implies 
-	\frac{\gamma}{\sigma} = \frac{1}{G^*}.
-\]
-Dividing through by $\sigma$ gives the compliances:
-\[
-	\frac{\gamma_\text{total}}{\sigma} = \frac{\gamma_\text{spring}}{\sigma} + \frac{\gamma_\text{sample}}{\sigma}
-	\implies
-	\frac{1}{G^*_\text{total}} = \frac{1}{G^*_\text{spring}} + \frac{1}{G^*_\text{sample}}.
-\]
-Then we can solve for the compliance of the material in terms of the measured compliance and then compliance of the spring.
-\begin{equation}
-	G^*_{\text{sample}} = \frac{G^*_{\text{spring}}\, G^*_\text{total}}{G^*_{\text{spring}} - G^*_\text{total}}
-\end{equation}
 
-If we replace the spring with a perfectly rigid object, the correction should no longer be needed.
-\begin{equation}
-	G^*_\text{total}
-	\lim_{G^*_{\text{spring}} \to\infty}
-	\frac{G^*_\text{total}}{1 - G^*_\text{total}/ G^*_{\text{spring}}} = 
-	G^*_\text{total}
-\end{equation}
-and it does.
-
-There's a change all of this is wrong.
-Malkin does it in a weird way.
-Maybe this is not exactly what he does but it's something like this.
-For a rigid system
+The solution for the driving oscillator $x_1$ and the top plate $x_2$ are:
 \[
-	m\ddot x + Z \dot x + k x = 0
+	\begin{bmatrix}
+		x_1 \\ x_2
+	\end{bmatrix}
+	= 
+	\begin{bmatrix}
+		c_1 \\ c_2 e^{i\varphi}
+	\end{bmatrix}
+	e^{i\omega t}
 \]
-Where $k$ and $Z$ are the storage and the loss modules of the system.
+For the top plate we have:
+\[
+	m\ddot x_2 + Z x_2 + \frac{S}{h}G^* (x_2 + x_1) = 0
+\]
+where $m$ is the mass of the top plate, $Z$ is the modulus of the spring, $G_*$ is the modulus of the material, $S$ is the surface of the plate and $h$ is the height of the plate. If the spring has no loss modulus, $Z$ is purely real. In this case we consider a spring with a non-zero loss modulus, therefore $Z\to Z^* = Z' + iZ''$ had to be a complex number.
+\[
+	m\ddot x_2 + Z^* x_2 + \frac{S}{h}G^* (x_2 + x_1) = 0
+\]
+Substituting $x_1 = c_1 e^{i\omega t}$, $x_2 = c_2 e^{i\varphi} e^{i\omega t}$ and $\ddot x_2 = - c_2 \omega^2 e^{i\varphi} e^{i\omega t}$, then solving for $G^*$:
+\[
+	- m c_2 \omega^2 e^{i\varphi} + c_2 Z^* e^{i\varphi} + \frac{S}{h}G^* (c_2 e^{i\varphi} + c_1) = 0
+\]\[
+	\frac{S}{h}G^* (c_2 e^{i\varphi} + c_1) = m c_2 \omega^2 e^{i\varphi} - c_2 Z^* e^{i\varphi} 
+\]\[
+	G^*  = \frac{h}{S} \cdot \frac{m c_2 \omega^2 e^{i\varphi} - c_2 Z^* e^{i\varphi}}{c_2 e^{i\varphi} + c_1}
+\]
+\[
+G^* = \frac{h}{S} \cdot \frac{m\omega^2 - Z^*}{1 + \frac{c_1}{c_2}e^{-i\varphi}}
+\]
+For simplicity, let $r = c_1/c_2$
+Separating real and imaginary components:
+\[
+G^* = \frac{h}{S} \cdot \frac{m\omega^2 - Z' - iZ''}{(1 + r\cos\varphi) - ir\sin\varphi}
+\]\[
+G^* = \frac{h}{S} \cdot \frac{\left[(m\omega^2 - Z')(1 + r\cos\varphi) - Z'' r\sin\varphi\right] + 
+	i\left[Z''(1 + r\cos\varphi) - (m\omega^2 - Z')r\sin\varphi\right]}{(1+r\cos\varphi)^2 + r^2\sin^2\varphi}
+\]\[
+G' = \frac{h}{S} \cdot \frac{(m\omega^2 - Z')(1 + r\cos\varphi) - Z'' r\sin\varphi}{(1+r\cos\varphi)^2 + r^2\sin^2\varphi}
+\]\[
+G'' = \frac{h}{S} \cdot \frac{Z''(1 + r\cos\varphi) - (m\omega^2 - Z')r\sin\varphi}{(1+r\cos\varphi)^2 + r^2\sin^2\varphi}
+\]
+The loss tangent $\delta = G''/G'$ is
+\[
+\delta =  \frac{Z''(1 + r\cos\varphi) - (m\omega^2 - Z')r\sin\varphi}
+{(m\omega^2 - Z')(1 + r\cos\varphi) - Z'' r\sin\varphi}
+\]
+
+
+
+%% This is the old solution. The textbook seems to do something different. Above I will repeat this calculation using the method from Malkin.
+%The spring and sample are in series so the stress $\sigma$ is the same but the total deformation is the sum:
+%\[
+%	\gamma_\text{total} = \gamma_\text{spring} + \gamma_\text{sample}.
+%\]
+%For a strain $\gamma = \gamma_0 e^{i\omega t}$, the stress in a linear viscoelastic material is:
+%\[
+%	\sigma = G^* \gamma = (G' + iG'')\gamma_0 e^{i\omega t} \implies 
+%	\frac{\gamma}{\sigma} = \frac{1}{G^*}.
+%\]
+%Dividing through by $\sigma$ gives the compliances:
+%\[
+%	\frac{\gamma_\text{total}}{\sigma} = \frac{\gamma_\text{spring}}{\sigma} + \frac{\gamma_\text{sample}}{\sigma}
+%	\implies
+%	\frac{1}{G^*_\text{total}} = \frac{1}{G^*_\text{spring}} + \frac{1}{G^*_\text{sample}}.
+%\]
+%Then we can solve for the compliance of the material in terms of the measured compliance and then compliance of the spring.
+%\begin{equation}
+%	G^*_{\text{sample}} = \frac{G^*_{\text{spring}}\, G^*_\text{total}}{G^*_{\text{spring}} - G^*_\text{total}}
+%\end{equation}
+%
+%If we replace the spring with a perfectly rigid object, the correction should no longer be needed.
+%\begin{equation}
+%	G^*_\text{total}
+%	\lim_{G^*_{\text{spring}} \to\infty}
+%	\frac{G^*_\text{total}}{1 - G^*_\text{total}/ G^*_{\text{spring}}} = 
+%	G^*_\text{total}
+%\end{equation}
+%and it does.
+
+
 
 
 %\pagebreak

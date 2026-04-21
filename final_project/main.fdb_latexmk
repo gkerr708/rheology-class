@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1776711213.40049 "main.tex" "main.pdf" "main" 1776711214.9466 0
+["pdflatex"] 1776801242.38281 "main.tex" "main.pdf" "main" 1776801244.0073 0
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1775415801 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1775415801 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1775415801 1004 54797486969f23fa377b128694d548df ""
@@ -38,7 +38,6 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1775415801 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1775415801 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1775415801 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1775415801 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1775415801 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1775415801 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1775415801 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -176,8 +175,8 @@
   "figures/shear_stress_field_cross_section.png" 1775061021.20432 222991 f1ee21d8962a5a66ce1ca7b27b6e2c37 ""
   "figures/velocity_field.png" 1775061021.20432 68532 49e02b713436fd7505e39fb9aa1ad762 ""
   "figures/velocity_field_cross_section.png" 1775061021.20632 201581 a977d042248640696c16abe2c40e5e4f ""
-  "main.aux" 1776711214.84132 7292 a9526e08a467806d31dca4da464ba104 "pdflatex"
-  "main.tex" 1776711212.24432 44310 d660c14488550c87534fa340979e4456 ""
+  "main.aux" 1776801243.90199 6989 5de0b14145e92c00350903532d4f1e95 "pdflatex"
+  "main.tex" 1776801243.14199 47508 876575c7a07990746559cce0bcdb2332 ""
   (generated)
   "main.aux"
   "main.log"
