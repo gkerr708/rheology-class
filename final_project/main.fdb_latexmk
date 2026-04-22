@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1776801242.38281 "main.tex" "main.pdf" "main" 1776801244.0073 0
+["pdflatex"] 1776863040.14292 "main.tex" "main.pdf" "main" 1776863042.01246 0
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1775415801 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1775415801 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1775415801 1004 54797486969f23fa377b128694d548df ""
@@ -7,8 +7,10 @@
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib6.tfm" 1775415801 1516 a3bf6a5e7ec4401b1f52092dfaaed242 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib8.tfm" 1775415801 1528 dab402b9d3774ca98baa037071cee7ae ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1775415801 916 f87d7c45f9c908e672703b83b72241a3 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1775415801 924 9904cf1d39e9767e7a3622f2a125a565 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm" 1775415801 928 2dc8d444221b7a635bb58038579b861a ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1775415801 908 2921f8a10601f252058503cc6570e581 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1775415801 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1775415801 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm" 1775415801 1116 4e6ba9d7914baa6482fd69f67d126380 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1775415801 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -33,9 +35,11 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1775415801 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1775415801 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1775415801 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1775415801 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1775415801 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1775415801 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1775415801 32734 69e00a6b65cedb993666e42eedb3d48f ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1775415801 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1775415801 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1775415801 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1775415801 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
@@ -175,8 +179,8 @@
   "figures/shear_stress_field_cross_section.png" 1775061021.20432 222991 f1ee21d8962a5a66ce1ca7b27b6e2c37 ""
   "figures/velocity_field.png" 1775061021.20432 68532 49e02b713436fd7505e39fb9aa1ad762 ""
   "figures/velocity_field_cross_section.png" 1775061021.20632 201581 a977d042248640696c16abe2c40e5e4f ""
-  "main.aux" 1776801243.90199 6989 5de0b14145e92c00350903532d4f1e95 "pdflatex"
-  "main.tex" 1776801243.14199 47508 876575c7a07990746559cce0bcdb2332 ""
+  "main.aux" 1776863041.84012 6989 5de0b14145e92c00350903532d4f1e95 "pdflatex"
+  "main.tex" 1776863039.95312 29515 8426e5b01a401152921fa1999083a94b ""
   (generated)
   "main.aux"
   "main.log"

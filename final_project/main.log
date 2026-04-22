@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.6)  21 APR 2026 16:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.6)  22 APR 2026 10:04
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -699,22 +699,22 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11]
-<figures/velocity_field.png, id=94, 578.16pt x 433.62pt>
+<figures/velocity_field.png, id=98, 578.16pt x 433.62pt>
 File: figures/velocity_field.png Graphic file (type png)
 <use figures/velocity_field.png>
 Package pdftex.def Info: figures/velocity_field.png  used on input line 841.
 (pdftex.def)             Requested size: 362.37569pt x 271.77934pt.
-<figures/velocity_field_cross_section.png, id=96, 433.62pt x 433.62pt>
+<figures/velocity_field_cross_section.png, id=100, 433.62pt x 433.62pt>
 File: figures/velocity_field_cross_section.png Graphic file (type png)
 <use figures/velocity_field_cross_section.png>
 Package pdftex.def Info: figures/velocity_field_cross_section.png  used on input line 847.
 (pdftex.def)             Requested size: 144.95303pt x 144.95427pt.
-<figures/shear_rate_field_cross_section.png, id=97, 433.62pt x 433.62pt>
+<figures/shear_rate_field_cross_section.png, id=101, 433.62pt x 433.62pt>
 File: figures/shear_rate_field_cross_section.png Graphic file (type png)
 <use figures/shear_rate_field_cross_section.png>
 Package pdftex.def Info: figures/shear_rate_field_cross_section.png  used on input line 848.
 (pdftex.def)             Requested size: 144.95303pt x 144.95427pt.
-<figures/shear_stress_field_cross_section.png, id=98, 433.62pt x 433.62pt>
+<figures/shear_stress_field_cross_section.png, id=102, 433.62pt x 433.62pt>
 File: figures/shear_stress_field_cross_section.png Graphic file (type png)
 <use figures/shear_stress_field_cross_section.png>
 Package pdftex.def Info: figures/shear_stress_field_cross_section.png  used on input line 849.
@@ -726,18 +726,18 @@ L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 23596 strings out of 469515
- 428597 string characters out of 5470808
+ 23608 strings out of 469515
+ 428732 string characters out of 5470808
  840502 words of memory out of 5000000
- 51836 multiletter control sequences out of 15000+600000
- 636992 words of font info for 73 fonts, out of 8000000 for 9000
+ 51845 multiletter control sequences out of 15000+600000
+ 638691 words of font info for 81 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  99i,12n,118p,598b,475s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (14 pages, 682709 bytes).
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main.pdf (14 pages, 704834 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 168 compressed objects within 2 object streams
- 37 named destinations out of 1000 (max. 500000)
+ 232 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
  121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
