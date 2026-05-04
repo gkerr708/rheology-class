@@ -14,7 +14,7 @@
 }
 
 \section{2-4 Malkin}
-\textit{Explain why the value $\theta_K$, entering the Kohlrausch function, Eq. 2.1.6 is not a relaxation  time. How do you find relaxation times for this relaxation function?}
+\textit{Explain why the value $\theta_K$, entering the Kohlrausch function, Eq. 2.1.6 is not a relaxation time. How do you find relaxation times for this relaxation function?}
 \[
 \varphi(t)=\exp\!\left[-\left(\frac{t}{\theta_K}\right)^n\right],
 \qquad
@@ -51,7 +51,8 @@ All together
 \]
 
 \subsection{Discrete relaxation times}
-If we want to solve it we need to make it discrete. So we can write:
+If we want a simple solution, we can assume a discrete set of relaxation times.
+So we can write
 \[
 	G(\theta) = \sum_{i=1}^N G_i \delta(\theta - \theta_i)
 \]
@@ -68,54 +69,90 @@ Now we can equate this to the Kohlrausch function:
 \]
 
 
-\subsection{Finishing the inverse Laplace transform}
-
-We have
+\subsection{Analytic solution}
+Following Pollard (1946)\footnote{Pollard, H. (1946). The representation of $e^{-x^\lambda}$ as a Laplace integral.}, the inverse Laplace transform of 
 \[
-\widetilde G(s)=\mathcal L^{-1}\left\{e^{-(s_K t)^n}\right\}(s),
-\qquad s_K=\frac{1}{\theta_K},\quad 0<n<1.
+    \tilde{G}(s) = \frac{1}{2\pi i}
+    \int_\gamma e^{st}\, e^{-(s_K t)^n}\, dt
 \]
-Expand the stretched exponential:
-\[
-e^{-(s_K t)^n}=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,t^{nk}.
-\]
-Use the inverse Laplace transform identity
-\[
-\mathcal L^{-1}\{t^{a}\}(s)=\frac{1}{\Gamma(-a)}\,s^{-a-1}
-\]
-which can be obtained by analytic continuation of
-\(\mathcal L\{t^{\alpha-1}/\Gamma(\alpha)\}=s^{-\alpha}\).
-With \(a=nk\), this gives
-\[
-\mathcal L^{-1}\{t^{nk}\}(s)=\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
-\]
-Therefore
-\[
-\boxed{
-\widetilde G(s)
-=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,
-\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
-}
-\]
-
-\subsection{Convert back to the relaxation-time spectrum}
-Recall \(\widetilde G(s)=G(1/s)/s^2\), hence \(G(\theta)=\widetilde G(1/\theta)/\theta^2\).
-Substitute \(s=1/\theta\):
-\[
-\widetilde G(1/\theta)
-=\theta\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,
-\frac{1}{\Gamma(-nk)}(s_K\theta)^{nk}.
-\]
-Thus
+can be simplified to.
 \begin{equation}
-\boxed{
-G(\theta)
-=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^k}{k!}\,
-\frac{1}{\Gamma(-nk)}\left(\frac{\theta}{\theta_K}\right)^{nk},
-\qquad (0<n<1).
-}
-\label{eq:relaxation_spectrum_kohlrausch}
+    \tilde{G}(s) =
+    \frac{1}{\pi}\,\mathrm{Im}\left\{
+    \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k!}\,
+    e^{-i\pi n k}\,
+    \frac{\Gamma(nk+1)}{(s/s_K)^{nk+1}}
+    \right\} \cdot \frac{1}{s_K}.
+    \label{eq:pollard_series}
 \end{equation}
+The relaxation spectrum is therefore $G(\theta) = \tilde{G}(1/\theta)/\theta^2$:
+\[
+    G(\theta) = \frac{1}{\pi\,\theta}
+    \,\mathrm{Im}\left\{
+    \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k!}\,
+    e^{-i\pi n k}\,\Gamma(nk+1)
+    \left(\frac{\theta}{\theta_K}\right)^{nk}
+    \right\}.
+\]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/kww_half.png}
+	\caption{
+		Verification of the Pollard identity for $n=1/2$: $\varphi(t)=e^{-(t/\theta_K)^{1/2}}$.
+	}
+	\label{fig:kwww}
+\end{figure}
+In Figure~\ref{fig:kwww}, the relaxation function $\varphi(t) = e^{-\sqrt{t/\theta_K}}$ (solid line) the replicated by the numerical integration of equation~\ref{eq:pollard_series}.
+
+%\subsection{Analytic Solution}
+%We have
+%\[
+%\widetilde G(s)=\mathcal L^{-1}\left\{e^{-(s_K t)^n}\right\}(s),
+%\qquad s_K=\frac{1}{\theta_K},\quad 0<n<1.
+%\]
+%Expand the stretched exponential:
+%\[
+%e^{-(s_K t)^n}=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,t^{nk}.
+%\]
+%Use the inverse Laplace transform identity
+%\[
+%\mathcal L^{-1}\{t^{a}\}(s)=\frac{1}{\Gamma(-a)}\,s^{-a-1}
+%\]
+%which can be obtained by analytic continuation of
+%\(\mathcal L\{t^{\alpha-1}/\Gamma(\alpha)\}=s^{-\alpha}\).
+%With \(a=nk\), this gives
+%\[
+%\mathcal L^{-1}\{t^{nk}\}(s)=\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
+%\]
+%Therefore
+%\[
+%\boxed{
+%\widetilde G(s)
+%=\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,s_K^{nk}\,
+%\frac{1}{\Gamma(-nk)}\,s^{-nk-1}.
+%}
+%\]
+%
+%\textbf{Convert back to the relaxation-time spectrum}
+%
+%Recall \(\widetilde G(s)=G(1/s)/s^2\), hence \(G(\theta)=\widetilde G(1/\theta)/\theta^2\).
+%Substitute \(s=1/\theta\):
+%\[
+%\widetilde G(1/\theta)
+%=\theta\sum_{k=0}^\infty \frac{(-1)^k}{k!}\,
+%\frac{1}{\Gamma(-nk)}(s_K\theta)^{nk}.
+%\]
+%Thus
+%\begin{equation}
+%\boxed{
+%G(\theta)
+%=\frac{1}{\theta}\sum_{k=1}^\infty \frac{(-1)^k}{k!}\,
+%\frac{1}{\Gamma(-nk)}\left(\frac{\theta}{\theta_K}\right)^{nk},
+%\qquad (0<n<1).
+%}
+%\label{eq:relaxation_spectrum_kohlrausch}
+%\end{equation}
 
 %Does this converge?
 %\[
@@ -610,58 +647,9 @@ Or equivalently,
 	\end{cases}.
 \]
 
-Next we want we want to find the shear stress distribution $\sigma_{ij}$ as a function of $r$.
-Starting with the \emph{Navier-Stokes equation}:
+The stress distribution follows the same argument as in 3-5/3-6, giving
 \[
-	\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u}\cdot\nabla)\mathbf{u} \right) = -\nabla p + \nabla\cdot\boldsymbol{\sigma}.
-\]
-Evaluating the left-hand side, we have the following due to the steady flow assumption:
-\[
-	\frac{\partial \mathbf{u}}{\partial t} = 0.
-\]
-And for the other LHS term:
-\[
-	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
-	= u_j \partial_j u_i
-	= u_r \partial_r u_i + u_\theta \tfrac1r\partial_\theta u_i + u_z \partial_z u_i
-\]
-$u_r = u_\theta = 0$ therefore
-\[
-	((\mathbf{u}\cdot\nabla)\mathbf{u})_r = 
-	((\mathbf{u}\cdot\nabla)\mathbf{u})_\theta = 0
-\]
-$\mathbf{u} = u_z(r)$
-\[
-	((\mathbf{u}\cdot\nabla)\mathbf{u})_i
-	= u_r \partial_r u_z + u_\theta \tfrac1r\partial_\theta u_z + u_z \partial_z u_z = 0
-\]
-Therefore the whole LHS of the Navier Stokes is zero. Navier-Stokes equation reduces to
-\[
-	\nabla p = \nabla\cdot\boldsymbol{\sigma}.
-\]
-In cylindrical coordinates, the RHS is 
-\[
-	\nabla\cdot\boldsymbol{\sigma} = 
-	\frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz}) + 
-	\frac{1}{r}\frac{\partial \sigma{\theta z}}{\partial \theta} + 
-	\frac{\partial \sigma_{zz}}{\partial z}
-	= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz}).
-\]
-All other terms are zero since $\sigma_{\theta z} = 0$ and $\sigma_{zz}$ is independent of $z$ for steady flow. The pressure gradient is constant, so $\nabla p = \frac{\Delta P}{L}$, and we have
-\begin{align*}
-	\frac{\Delta P}{L} &= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz})\\
-	\int \frac{\Delta P}{L}\, r\,dr
-	&= \int \frac{\partial}{\partial r}(r\sigma_{rz})\,dr\\
-	\frac{\Delta P}{L}\frac{r^2}{2} + C_1
-	&= r\sigma_{rz}\\
-	\sigma_{rz}
-	&=
-	\frac{\Delta P}{2L} r + \frac{C_1}{r}.
-\end{align*}
-
-The stress must remain finite at the centerline $r=0$, which requires $C_1 = 0$. Therefore
-\[
-	\boxed{\sigma_{rz} = \frac{\Delta P}{2L}\, r}.
+    \sigma_{rz} = \frac{\Delta P}{2L}\, r.
 \]
 
 Flow only occurs when $\sigma(r) \geq \sigma_Y$, so there is a region in the center of the tube where $r < r_0$ for which there is no shearing.
