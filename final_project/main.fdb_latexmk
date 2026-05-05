@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1777923156.60983 "main.tex" "main.pdf" "main" 1777923158.50291 0
+["pdflatex"] 1777996811.46631 "main.tex" "main.pdf" "main" 1777996813.28204 0
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1775415801 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1775415801 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1775415801 1004 54797486969f23fa377b128694d548df ""
@@ -184,8 +184,8 @@
   "figures/shear_stress_field_cross_section.png" 1775061021.20432 222991 f1ee21d8962a5a66ce1ca7b27b6e2c37 ""
   "figures/velocity_field.png" 1775061021.20432 68532 49e02b713436fd7505e39fb9aa1ad762 ""
   "figures/velocity_field_cross_section.png" 1775061021.20632 201581 a977d042248640696c16abe2c40e5e4f ""
-  "main.aux" 1777923158.38098 6327 17350746e112f0dda9d00376dd825d3b "pdflatex"
-  "main.tex" 1777923153.17998 28954 edaff67d4d13f0d26f79c0b06059db80 ""
+  "main.aux" 1777996813.17567 6327 7f9271f7af7ced7f598005df7471059c "pdflatex"
+  "main.tex" 1777996811.30267 29056 646e34eb6f915365e7b8b905d2b4817b ""
   (generated)
   "main.aux"
   "main.log"
