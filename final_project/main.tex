@@ -23,9 +23,10 @@ The Kohlrausch function is
 Therefore the relaxation function is
 $\varphi(t)=\exp\!\left[-\left(\frac{t}{\theta_K}\right)^n\right]$.
 It can also be expressed in terms of is the relaxation-time spectrum $G(\theta)$.
-\[
-\varphi(t)=\int_0^\infty G(\theta)\,e^{-t/\theta}\,d\theta.
-\]
+\begin{equation}
+	\varphi(t)=\int_0^\infty G(\theta)\,e^{-t/\theta}\,d\theta.
+	\label{eq:phi_t}
+\end{equation}
 This gives us the weighting for each relaxation time which is what we need to solve this problem.
 To begin, we will do a change of variables.
 Let $s=1/\theta$, so $d\theta=-ds/s^2$, then
@@ -75,7 +76,7 @@ Following Pollard (1946)\footnote{Pollard, H. (1946). The representation of $e^{
     \tilde{G}(s) = \frac{1}{2\pi i}
     \int_\gamma e^{st}\, e^{-(s_K t)^n}\, dt
 \]
-can be simplified to.
+can be simplified to
 \begin{equation}
     \tilde{G}(s) =
     \frac{1}{\pi}\,\mathrm{Im}\left\{
@@ -95,15 +96,16 @@ The relaxation spectrum is therefore $G(\theta) = \tilde{G}(1/\theta)/\theta^2$:
     \right\}.
 \]
 
+Now we can verify this result by substituting $G(\theta)$ back into equation~\ref{eq:phi_t} and confirming that the integral recovers the Kohlrausch function. For case $n=1/2$ (this is shown in figure~\ref{fig:kwww}) the numerical integration of equation~\ref{eq:pollard_series} is able to reproduce $\varphi(t) = e^{-\sqrt{t/\theta_K}}$.
+For higher values of $n$ I was not able to reproduce this due to numerical instabilities form the Gamma function.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/kww_half.png}
 	\caption{
-		Verification of the Pollard identity for $n=1/2$: $\varphi(t)=e^{-(t/\theta_K)^{1/2}}$.
+		The relaxation function $\varphi(t) = e^{-\sqrt{t/\theta_K}}$ (solid line) the replicated by the numerical integration of equation~\ref{eq:pollard_series}.
 	}
 	\label{fig:kwww}
 \end{figure}
-In Figure~\ref{fig:kwww}, the relaxation function $\varphi(t) = e^{-\sqrt{t/\theta_K}}$ (solid line) the replicated by the numerical integration of equation~\ref{eq:pollard_series}.
 
 %\subsection{Analytic Solution}
 %We have
@@ -319,19 +321,19 @@ Finally,
 	\frac{\eta_1\eta_2}{G_1G_2} \ddot\sigma
 	+ \frac{(\eta_1 G_2 + \eta_2 G_1)}{G_1G_2} \dot\sigma
 	+ \sigma
-		= \frac{\eta_1(G_1\eta_2 + G_2\eta_2)}{G_1G_2} \ddot\gamma
+		= \frac{\eta_1\eta_2(G_1 + G_2)}{G_1G_2} \ddot\gamma
 	    + (\eta_1 + \eta_2)\dot\gamma	
 		\label{eq:two_maxwell_parallel_soln}
 \end{equation}
-using $\theta_i = \eta_i / G_i$:
-\begin{equation}
-	\theta_1 \theta_2 \ddot\sigma
-	+ (\theta_1 + \theta_2) \dot\sigma
-	+ \sigma
-	= (\theta_1 + \theta_2) \ddot\gamma
-	+ (\theta_1 G_1 + \theta_2 G_2)\dot\gamma
-\end{equation}
-gives us a cleaner form.
+%using $\theta_i = \eta_i / G_i$:
+%\begin{equation}
+%	\theta_1 \theta_2 \ddot\sigma
+%	+ (\theta_1 + \theta_2) \dot\sigma
+%	+ \sigma
+%	= (\theta_1 + \theta_2) \ddot\gamma
+%	+ (\theta_1 G_1 + \theta_2 G_2)\dot\gamma
+%\end{equation}
+%gives us a cleaner form.
 
 \subsection{Equating Coefficients}
 From Eq. \ref{eq:two_maxwell_parallel_soln} we have
@@ -427,7 +429,7 @@ So
 	&=
 	(G_1+G_2)(\eta_1^2G_2 + \eta_2^2G_1) + \eta_1\eta_2(G_1+G_2)^2.
 \end{align*}
-Substitute this back into the numerator; the $\eta_1\eta_2(G_1+G_2)^2$ terms cancel:
+Substitute this back into the numerator, the $\eta_1\eta_2(G_1+G_2)^2$ terms cancel:
 \begin{align*}
 	\text{numerator}
 	&=
@@ -491,7 +493,7 @@ so
 
 \textit{3-6: Calculate the radial distribution of shear rates and flow velocity of Newtonian liquid (having viscosity $\eta$) through a straight tube with radius $R$.}
 
-I decided to combine these because the first first part of 3-6 entirely answers 3-5.
+I decided to combine these because the first first part of 3-6 entirely covers 3-5.
 
 Starting with the \emph{Navier-Stokes equation}:
 \[
