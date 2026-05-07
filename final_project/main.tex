@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper]{article}
 \usepackage{custom_config}
-\numberwithin{equation}{subsection}
+\numberwithin{equation}{section}
 
 \begin{document}
 
@@ -102,7 +102,7 @@ For higher values of $n$ I was not able to reproduce this due to numerical insta
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/kww_half.png}
 	\caption{
-		The relaxation function $\varphi(t) = e^{-\sqrt{t/\theta_K}}$ (solid line) the replicated by the numerical integration of equation~\ref{eq:pollard_series}.
+		The relaxation function $\varphi(t) = e^{-\sqrt{t/\theta_K}}$ (solid line) replicated by the numerical integration of equation~\ref{eq:pollard_series}.
 	}
 	\label{fig:kwww}
 \end{figure}
@@ -493,7 +493,7 @@ so
 
 \textit{3-6: Calculate the radial distribution of shear rates and flow velocity of Newtonian liquid (having viscosity $\eta$) through a straight tube with radius $R$.}
 
-I decided to combine these because the first first part of 3-6 entirely covers 3-5.
+I decided to combine these because the first part of 3-6 entirely covers 3-5.
 
 Starting with the \emph{Navier-Stokes equation}:
 \[
@@ -531,26 +531,26 @@ In cylindrical coordinates, the RHS is
 	\frac{\partial \sigma_{zz}}{\partial z}
 	= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz}).
 \]
-All other terms are zero since $\sigma_{\theta z} = 0$ and $\sigma_{zz}$ is independent of $z$ for steady flow. The pressure gradient is constant, so $\nabla p = \frac{\Delta P}{L}$, and we have
+All other terms are zero since $\sigma_{\theta z} = 0$ and $\sigma_{zz}$ is independent of $z$ for steady flow. The pressure gradient is constant, so $\nabla p = -\frac{\Delta P}{L}$, and we have
 \begin{align*}
-	\frac{\Delta P}{L} &= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz})\\
-	\frac{\Delta P}{L}\, r &= \frac{\partial}{\partial r}(r\sigma_{rz})\\
+	-\frac{\Delta P}{L} &= \frac{1}{r}\frac{\partial}{\partial r}(r\sigma_{rz})\\
+	\frac{\Delta P}{L}\, r &= -\frac{\partial}{\partial r}(r\sigma_{rz})\\
 	\int \frac{\Delta P}{L}\, r\,dr
-	&= \int \frac{\partial}{\partial r}(r\sigma_{rz})\,dr\\
+	&= -\int \frac{\partial}{\partial r}(r\sigma_{rz})\,dr\\
 	\frac{\Delta P}{L}\frac{r^2}{2} + C_1
-	&= r\sigma_{rz}.
+	&= -r\sigma_{rz}.
 \end{align*}
 
 Solving for the shear stress gives
 \[
 	\sigma_{rz}
 	=
-	\frac{\Delta P}{2L} r + \frac{C_1}{r}.
+	-\frac{\Delta P}{2L} r - \frac{C_1}{r}.
 \]
 
 The stress must remain finite at the centerline $r=0$, which requires $C_1 = 0$. Therefore
 \[
-	\boxed{\sigma_{rz} = \frac{\Delta P}{2L}\, r}.
+	\boxed{\sigma_{rz} = - \frac{\Delta P}{2L}\, r}.
 \]
 
 This is a key result: the shear stress $\sigma_{rz}$ is proportional to the radius $r$ and does not depend on the viscosity $\eta$.
@@ -561,7 +561,7 @@ Now we can use the constitutive relation for a Newtonian fluid $\sigma_{rz} = \e
 	=
 	\frac{\sigma_{rz}}{\eta}
 	=
-	\frac{\Delta P}{2\eta L} r.
+	- \frac{\Delta P}{2\eta L} r.
 \]
 
 Integrating the shear rate gives the velocity distribution:
@@ -570,18 +570,18 @@ Integrating the shear rate gives the velocity distribution:
 	&=
 	\int \dot\gamma_{rz}\,dr \\
 	&=
-	\int \frac{\Delta P}{2\eta L} r\,dr \\
+	-\int \frac{\Delta P}{2\eta L} r\,dr \\
 	&=
-	\frac{\Delta P}{4\eta L} r^2 + C_2.
+	-\frac{\Delta P}{4\eta L} r^2 + C_2.
 \end{align*}
 
 Applying the no-slip boundary condition $u_z(R) = 0$ gives
-$C_2 = -\frac{\Delta P}{4\eta L} R^2,$
+$C_2 = +\frac{\Delta P}{4\eta L} R^2,$
 so the velocity profile becomes
 \[
 	\boxed{
 	u_z(r) =
-	\frac{\Delta P}{4\eta L}\,(r^2 - R^2)
+	\frac{\Delta P}{4\eta L}\,(R^2 - r^2)
 	}.
 \]
 
@@ -601,22 +601,22 @@ The surface is just the cross sectional area of the pipe:
 	  = 2\pi\int_0^R  u\, r\, dr
 \]
 \[
-	Q = 2\pi  \frac{\Delta P}{4\eta L}\int_0^R\,(r^2 - R^2) r dr
+	Q = 2\pi  \frac{\Delta P}{4\eta L}\int_0^R\,(R^2 - r^2) r dr
 \]
 \[
-	\int_0^R r^3 dr = \frac{R^4}{4}, \quad
-	R^2 \int_0^R r dr = \frac{R^4}{2}
+	R^2 \int_0^R r dr = \frac{R^4}{2}, \quad
+	\int_0^R r^3 dr = \frac{R^4}{4}
 \]
 \[
 	Q = 2\pi  \frac{\Delta P}{4\eta L}
-	\left(\frac{R^4}{4} - \frac{R^4}{2}\right)
+	\left(\frac{R^4}{2} - \frac{R^4}{4}\right)
 	= \boxed{\frac{\pi \Delta P R^4}{8\eta L}}
 \]
 
 \textbf{Additional question 2.} \textit{Express maximum shear rate via volume output.}
 From earlier we have:
 \[
-	\sigma_{rx} = \frac{\Delta P r}{2 L}.
+	|\sigma_{rz}| = \frac{\Delta P r}{2 L}.
 \]
 $r\in[0,R]$, therefore:
 \[
@@ -624,7 +624,10 @@ $r\in[0,R]$, therefore:
 \]
 \[
 	Q = \frac{\pi R^3}{4\eta} \frac{\Delta P R}{2 L} = \frac{\pi R^3}{4\eta} \sigma_\text{max}
-	\implies \sigma_\text{max} =  \boxed{\frac{4\eta Q}{\pi R^3}}
+	\implies \sigma_\text{max} =  \frac{4\eta Q}{\pi R^3}
+\]
+\[
+	\dot\gamma_\text{max} = \sigma_\text{max}/\eta = \boxed{\frac{4Q}{\pi R^3}}
 \]
 
 
@@ -812,7 +815,51 @@ Q
 + \frac{\sigma_Y}{\mu}\left(R\frac{r_0^2}{2} - \frac{r_0^3}{3}\right)
 \Bigg]
 \end{align*}
-where $r_0 = \frac{2L\sigma_Y}{\Delta P}$, in terms of the pressure gradient $\Delta P/L$, the yield stress $\sigma_Y$, the plastic viscosity $\mu$, and the tube radius $R$.
+Substituting $\sigma_Y = \frac{\Delta P}{2L}r_0$:
+\begin{align*}
+Q
+&= 2\pi \frac{\Delta P}{\mu L}\Bigg[
+  \frac{1}{ 8}(R - r_0)^2 r_0^2
++ \frac{1}{16}R^4 
+- \frac{1}{12}R^3r_0
+- \frac{1}{ 4}\left(R^2\frac{r_0^2}{2} - \frac{r_0^4}{4}\right)
++ \frac{1}{ 2}r_0\left(R\frac{r_0^2}{2} - \frac{r_0^3}{3}\right)
+\Bigg]
+\\
+&= 2\pi \frac{\Delta P}{\mu L}
+\Bigg[
+  \frac{1}{ 8}R^2r_0^2 
+- \frac{1}{ 4}Rr_0^3
++ \frac{1}{ 8}r_0^4
++ \frac{1}{16}R^4 
+- \frac{1}{12}R^3r_0 
+- \frac{1}{8}R^2r_0^2 
++ \frac{1}{16}r_0^4
++ \frac{1}{4}Rr_0^3
+- \frac{1}{6}r_0^4
+\Bigg]
+\\
+&= 2\pi \frac{\Delta P}{\mu L}
+\Bigg[
+\cancel{\frac{1}{8}R^2r_0^2} 
+- \cancel{\frac{1}{8}R^2r_0^2}
++ \cancel{\frac{1}{4}Rr_0^3}
+- \cancel{\frac{1}{4}Rr_0^3}
++ \frac{1}{8}r_0^4
++ \frac{1}{16}R^4 
+- \frac{1}{12}R^3r_0 
++ \frac{1}{16}r_0^4
+- \frac{1}{6}r_0^4
+\Bigg]
+\\
+&= \frac{\pi \Delta P}{\mu L}
+\Bigg[
+  \frac{1}{8}R^4 
+- \frac{1}{6}R^3r_0
++ \frac{1}{24}r_0^4
+\Bigg]
+\end{align*}
+gives our final equation for $Q$ in terms of the pressure gradient, the viscosity, the length and the critical radius ($r_0$).
 
 
  
@@ -837,7 +884,7 @@ where $r_0 = \frac{2L\sigma_Y}{\Delta P}$, in terms of the pressure gradient $\D
 	\includegraphics[width=0.32\textwidth]{figures/velocity_field_cross_section.png}
 	\includegraphics[width=0.32\textwidth]{figures/shear_rate_field_cross_section.png}
 	\includegraphics[width=0.32\textwidth]{figures/shear_stress_field_cross_section.png}
-	\caption{Cross-sectional profiles of velocity, shear rate, and shear stress for a Bingham fluid flowing through a tube. The region near the center of the tube (where $r < r_0$) has zero shear rate. The velocity profile is flat in this region and then decreases towards the walls of the tube. The shear stress increases linearly with radius and exceeds the yield stress $\sigma_Y$ at $r = r_0$.}
+	\caption{Cross-sectional profiles of velocity, shear rate, and shear stress for a Bingham fluid flowing through a tube. The region near the center of the tube (where $r < r_0$) has zero shear rate. The velocity profile is flat in this region and then decreases towards the walls of the tube. The shear stress increases linearly from $r=0$ to $r=R$.}
 	\label{fig:malkin_3_9_cross_section}
 \end{figure} 
 
@@ -847,7 +894,18 @@ where $r_0 = \frac{2L\sigma_Y}{\Delta P}$, in terms of the pressure gradient $\D
 \section{5-7 Malkin}
 \textit{In the principal scheme of measuring viscoelastic properties of the material, a spring is used (Fig. 5.7.1) that is not ideal elastic but viscoelastic (has some losses in deformation). How do you calculate the viscoelastic properties of the material under investigation?}
 
-The solution for the driving oscillator $x_1$ and the top plate $x_2$ are:
+The top plate is a damped harmonic oscillator being driven at an angular velocity of $\omega$. The elastic and viscous components of the spring are captured by $Z^* = Z' + iZ''$ and the elastic and viscous components of the material between the plates are captured by $G^* = G' + iG''$.
+Its equation of motion is
+\begin{equation}
+	m\ddot{x}_2 + Z^* x_2 + \frac{S}{h}G^*(x_2 - x_1) = 0
+	\label{eq:ode_5-6}
+\end{equation}
+where $m$ is the mass of the top plate, 
+$S$ is the surface area of the plate, 
+$h$ is the height of the sample, 
+$x_2$ is the displacement of the top plate
+and $x_1$ is the displacement of the driving plate.
+Since the system is linear the solution for $x_1$ and $x_2$ should have the same angular velocity $\omega$:
 \[
 	\begin{bmatrix}
 		x_1 \\ x_2
@@ -858,17 +916,9 @@ The solution for the driving oscillator $x_1$ and the top plate $x_2$ are:
 	\end{bmatrix}
 	e^{i\omega t}
 \]
-For the top plate we have:
-\[
-	m\ddot{x}_2 + Z^* x_2 + \frac{S}{h}G^*(x_2 - x_1) = 0
-\]
-where $m$ is the mass of the top plate, $Z^*$ is the complex modulus of the spring, 
-$G^*$ is the complex modulus of the material, $S$ is the surface area of the plate 
-and $h$ is the height of the sample. Since the spring has a non-zero loss modulus, 
-$Z^* = Z' + iZ''$ is complex.
 
 Substituting $x_1 = c_1 e^{i\omega t}$, $x_2 = c_2 e^{i\varphi} e^{i\omega t}$ 
-and $\ddot{x}_2 = -c_2\omega^2 e^{i\varphi} e^{i\omega t}$:
+and $\ddot{x}_2 = -c_2\omega^2 e^{i\varphi} e^{i\omega t}$ into equation \ref{eq:ode_5-6}:
 \[
 	-mc_2\omega^2 e^{i\varphi} + c_2 Z^* e^{i\varphi} 
 	+ \frac{S}{h}G^*\left(c_2 e^{i\varphi} - c_1\right) = 0
@@ -888,30 +938,58 @@ For simplicity, let $r = c_1/c_2$. Separating real and imaginary components:
 \]
 \[
 	G^* = \frac{h}{S} \cdot 
-	\frac{
-		\left[(m\omega^2 - Z')(1 - r\cos\varphi) - Z'' r\sin\varphi\right]
-		+ i\left[Z''(1 - r\cos\varphi) + (m\omega^2 - Z')r\sin\varphi\right]
-	}{
-		(1 - r\cos\varphi)^2 + r^2\sin^2\varphi
-	}
+	\frac{[m\omega^2 - Z' - iZ''][(1 - r\cos\varphi) - ir\sin\varphi]}{[(1 - r\cos\varphi) + ir\sin\varphi][(1 - r\cos\varphi) - ir\sin\varphi]}
 \]
-Therefore:
+Just the numerator:
+\begin{align*}
+	&\quad [m\omega^2 - Z' - iZ''][(1 - r\cos\varphi) - ir\sin\varphi]\\
+	&= [m\omega^2 - Z' - iZ''](1 - r\cos\varphi) - [m\omega^2 - Z' - iZ'']ir\sin\varphi\\
+	&= (m\omega^2 - Z')(1 - r\cos\varphi) - iZ''(1 - r\cos\varphi) - [i(m\omega^2 - Z')r\sin\varphi + Z''r\sin\varphi]\\
+	&= (m\omega^2 - Z')(1 - r\cos\varphi) - iZ''(1 - r\cos\varphi) - i(m\omega^2 - Z')r\sin\varphi - Z''r\sin\varphi \\
+	&= (m\omega^2 - Z')(1 - r\cos\varphi) - Z''r\sin\varphi - i[(m\omega^2 - Z')r\sin\varphi + Z''(1 - r\cos\varphi)] \\
+\end{align*}
+Substituting the numerator back into $G^*$ gives our final results:
+\[
+	G^* = \frac{h}{S} \cdot 
+	\frac{(m\omega^2 - Z')(1 - r\cos\varphi) - Z''r\sin\varphi 
+	  - i[(m\omega^2 - Z')r\sin\varphi + Z''(1 - r\cos\varphi)]}{
+		(1 - r\cos\varphi)^2 + r^2\sin^2\varphi}
+\]
 \[
 	G' = \frac{h}{S} \cdot 
-	\frac{(m\omega^2 - Z')(1 - r\cos\varphi) - Z'' r\sin\varphi}
-	{(1 - r\cos\varphi)^2 + r^2\sin^2\varphi}
+		\frac{(m\omega^2 - Z')(1 - r\cos\varphi) - Z''r\sin\varphi}{
+		(1 - r\cos\varphi)^2 + r^2\sin^2\varphi}
 \]
 \[
-	G'' = \frac{h}{S} \cdot 
-	\frac{Z''(1 - r\cos\varphi) + (m\omega^2 - Z')r\sin\varphi}
-	{(1 - r\cos\varphi)^2 + r^2\sin^2\varphi}
+	G'' = - \frac{h}{S} \cdot 
+	\frac{(m\omega^2 - Z')r\sin\varphi + Z''(1 - r\cos\varphi)}{
+		(1 - r\cos\varphi)^2 + r^2\sin^2\varphi}
 \]
-The loss tangent is:
 \[
 	\tan\delta = \frac{G''}{G'} = 
-	\frac{Z''(1 - r\cos\varphi) + (m\omega^2 - Z')r\sin\varphi}
-	{(m\omega^2 - Z')(1 - r\cos\varphi) - Z'' r\sin\varphi}
+	\frac{- [(m\omega^2 - Z')r\sin\varphi + Z''(1 - r\cos\varphi)]}{
+		(m\omega^2 - Z')(1 - r\cos\varphi) - Z''r\sin\varphi}
 \]
+
+According to Malkin, the results are:
+\[
+	G^* = \frac{(Z^* - m\omega^2)Be^{i\varphi}}{K(A-Be^{i\varphi})},
+\]
+\[
+	G' = \frac{(Z''- m\omega^2)(p\cos\varphi-1)-Z'' p\sin\varphi}{K[(p-\cos\varphi)^2 +\sin^2\varphi]},
+\]
+\[
+	G'' = \frac{(Z' - m\omega^2)p\sin\varphi + Z'(p\cos\varphi - 1)}{K[(p-\cos\varphi)^2 +\sin^2\varphi]}.
+\]
+These do not agree with my results.
+Putting aside differences in notation ($K = S/h$ and $A, B = c_1, c_2$), Malkin says 
+that $G'$ is a function of $Z''$ and not $Z'$ and vice versa. Based on my 
+calculations, I think this has to be a typo because if you swap one $Z'$ with $Z''$ 
+and another $Z''$ with $Z'$ then our results agree. The denominators also look different 
+but are really the same\footnote{
+Malkin's denominator: $(p - \cos\varphi)^2 + \sin^2\varphi = p^2 - 2p\cos\varphi + \cos^2\varphi + \sin^2\varphi = 1 + p^2 - 2p\cos\varphi$.
+Ours: $(1 - r\cos\varphi)^2 + r^2\sin^2\varphi = 1 - 2r\cos\varphi + r^2\cos^2\varphi + r^2\sin^2\varphi = 1 - 2r\cos\varphi + r^2$. These are equal since $r = p$.
+}.
 
 
 
